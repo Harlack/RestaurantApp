@@ -1,8 +1,11 @@
 package com.example.restaurantapp.retrofit
 
+import com.intuit.sdp.BuildConfig
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+
 
 object RetrofitInstance {
 
@@ -18,7 +21,14 @@ object RetrofitInstance {
         api: Class<Api>
     ) : Api {
         return Retrofit.Builder()
-            .baseUrl("http://164.90.183.62/api")
+            .baseUrl("http://164.90.183.62/")
+            .client(OkHttpClient().newBuilder().also { client ->
+                if(BuildConfig.DEBUG){
+                    val logging = HttpLoggingInterceptor()
+                    logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
+                    client.addInterceptor(logging)
+                }
+            }.build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(api)

@@ -19,12 +19,13 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         vm.loginResponse.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success<*> -> {
                     Toast.makeText(requireContext(),"Login Succes",Toast.LENGTH_LONG).show()
                 }
-                is Resource.Failure() -> {
+                is Resource.Failure -> {
                     Toast.makeText(requireContext(),"Login Failed",Toast.LENGTH_LONG).show()
                 }
         } })

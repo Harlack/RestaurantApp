@@ -65,4 +65,6 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$version")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$version")
     implementation ("android.arch.lifecycle:extensions:1.1.0")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 }

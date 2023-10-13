@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.load.engine.Resource
 import com.example.restaurantapp.repository.AuthRepository
+import com.example.restaurantapp.retrofit.Resource
+import com.example.restaurantapp.user.LoginResponse
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
@@ -18,7 +19,4 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     = viewModelScope.launch {
         _loginResponse.value = repository.login(email, password)
     }
-
-
-
 }
