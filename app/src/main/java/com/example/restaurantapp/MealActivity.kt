@@ -41,16 +41,15 @@ class MealActivity : AppCompatActivity() {
 
     private fun observerMealDetailsLiveData() {
         mealMvvm.observerMealDetailsLiveData().observe(this,object : Observer<Meal>{
-            override fun onChanged(t: Meal?) {
+            override fun onChanged(value: Meal) {
                 onRespondBar()
-                val meal = t
-                binding.categoryDetail.text = "Category : ${meal!!.strCategory}"
-                binding.cashDetail.text = "Area : ${meal!!.strArea}"
-                binding.descriptionDetail.text = "Instruction for meal: ${meal!!.strInstructions}"
+                binding.categoryDetail.text = "Category : ${value!!.strCategory}"
+                binding.cashDetail.text = "Area : ${value!!.strArea}"
+                binding.descriptionDetail.text = "Instruction for meal: ${value!!.strInstructions}"
                 binding.addToCardButton.setOnClickListener {
                     getSharedPreferences("Shopping_cart", Context.MODE_PRIVATE).edit()
                         .apply(){
-                            putString("cash_amount","${meal!!.strArea}")
+                            putString("cash_amount","${value!!.strArea}")
                             Log.d("LOG","Jedzenie")
                         }.apply()
                 }

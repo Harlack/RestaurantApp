@@ -22,10 +22,12 @@ object RetrofitInstance {
     ) : Api {
         return Retrofit.Builder()
             .baseUrl("http://164.90.183.62/")
-            .client(OkHttpClient().newBuilder().also { client ->
+            .client(OkHttpClient()
+                .newBuilder()
+                .also { client ->
                 if(BuildConfig.DEBUG){
                     val logging = HttpLoggingInterceptor()
-                    logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
+                    logging.level = HttpLoggingInterceptor.Level.BASIC
                     client.addInterceptor(logging)
                 }
             }.build())

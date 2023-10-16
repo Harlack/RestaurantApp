@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.restaurantapp.base.BaseFragment
 import com.example.restaurantapp.databinding.FragmentLoginBinding
 import com.example.restaurantapp.repository.AuthRepository
 import com.example.restaurantapp.retrofit.AuthAPI
 import com.example.restaurantapp.retrofit.Resource
 import com.example.restaurantapp.viewModel.AuthViewModel
+import kotlinx.coroutines.launch
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
 
@@ -23,7 +25,11 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         vm.loginResponse.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success<*> -> {
+
                     Toast.makeText(requireContext(),"Login Succes",Toast.LENGTH_LONG).show()
+                    lifecycleScope.launch { userPreferences.saveAuthToken(it.value.toString())}
+                    TODO("Dodać przekazanie tokenu")
+
                 }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(),"Login Failed",Toast.LENGTH_LONG).show()

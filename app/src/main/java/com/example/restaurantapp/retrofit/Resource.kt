@@ -1,5 +1,6 @@
 package com.example.restaurantapp.retrofit
 
+import com.example.restaurantapp.user.LoginResponse
 import okhttp3.ResponseBody
 
 sealed class Resource<out T> {
@@ -8,5 +9,5 @@ sealed class Resource<out T> {
         val isNetworkError: Boolean,
         val errorCode: Int?,
         val errorBody: ResponseBody?
-    )
+    ) : Resource<LoginResponse>()
 }

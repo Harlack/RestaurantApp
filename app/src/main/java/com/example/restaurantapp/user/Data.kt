@@ -9,5 +9,6 @@ data class Data(
     val password: String,
     val phoneNumber: String,
     val points: Int,
-    val roles: String
+    val roles: String,
+    val token : String
 )
