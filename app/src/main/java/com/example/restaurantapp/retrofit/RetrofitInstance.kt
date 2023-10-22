@@ -27,7 +27,7 @@ object RetrofitInstance {
                 .also { client ->
                 if(BuildConfig.DEBUG){
                     val logging = HttpLoggingInterceptor()
-                    logging.level = HttpLoggingInterceptor.Level.BASIC
+                    logging.setLevel(HttpLoggingInterceptor.Level.BODY)
                     client.addInterceptor(logging)
                 }
             }.build())

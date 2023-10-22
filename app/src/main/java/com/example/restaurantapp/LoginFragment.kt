@@ -15,18 +15,18 @@ import com.example.restaurantapp.repository.AuthRepository
 import com.example.restaurantapp.retrofit.AuthAPI
 import com.example.restaurantapp.retrofit.Resource
 import com.example.restaurantapp.viewModel.AuthViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         vm.loginResponse.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success<*> -> {
 
-                    Toast.makeText(requireContext(),"Login Succes",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),"cc",Toast.LENGTH_LONG).show()
                     lifecycleScope.launch { userPreferences.saveAuthToken(it.value.toString())}
                     TODO("Dodać przekazanie tokenu")
 

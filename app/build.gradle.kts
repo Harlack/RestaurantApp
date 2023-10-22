@@ -1,11 +1,13 @@
  plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+     id ("kotlin-kapt")
+
 }
 
 android {
     namespace = "com.example.restaurantapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.restaurantapp"
@@ -69,8 +71,16 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     implementation("androidx.datastore:datastore-preferences:1.0.0-alpha01")
-    // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    // Lifecycles only (without ViewModel or LiveData)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+
+    implementation ("com.google.firebase:firebase-auth:19.3.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation ("com.google.android.material:material:1.6.0-alpha01")
+    
+    implementation ("com.google.dagger:hilt-android:2.40")
+    implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    implementation ("androidx.fragment:fragment-ktx:1.4.0")
+
+    
+
 }

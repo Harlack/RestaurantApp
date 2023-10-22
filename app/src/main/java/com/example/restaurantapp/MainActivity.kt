@@ -15,16 +15,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val userPreferences = UserPreferences(this)
-        userPreferences.authToken.asLiveData().observe(this, {
-            val activity = if(it == null) AuthActivity::class.java else HomeFragment::class.java
-            startActivity(Intent(this,activity))
+        /*val userPreferences = UserPreferences(this)
+        userPreferences.authToken.asLiveData().observe(this) {
+            val activity = if (it == null) AuthActivity::class.java else HomeFragment::class.java
+            startActivity(Intent(this, activity))
             finish()
-        })
+        }*/
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         val navController = navHostFragment.navController
+
         NavigationUI.setupWithNavController(bottomNavigationView,navController)
+
 
 
     }
