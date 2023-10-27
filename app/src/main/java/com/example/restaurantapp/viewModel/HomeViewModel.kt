@@ -4,14 +4,26 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.restaurantapp.meals.ListMeals
 import com.example.restaurantapp.meals.Meal
+import com.example.restaurantapp.repository.UserRepository
+import com.example.restaurantapp.retrofit.AuthAPI
+import com.example.restaurantapp.retrofit.Resource
 import com.example.restaurantapp.retrofit.RetrofitInstance
+import com.example.restaurantapp.retrofit.UserAPI
+import com.example.restaurantapp.user.LoginResponse
+import com.example.restaurantapp.user.User
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 
-class HomeViewModel():ViewModel(){
+class HomeViewModel(private val userRepository: UserRepository):ViewModel(){
     private var randomMealLD = MutableLiveData<Meal>()
+    private val _user : MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
+    val user : LiveData<Resource<LoginResponse>>
+        get() = _user
+
 
     fun getRandomMeal(){
         RetrofitInstance.api.getRandomMeal().enqueue(object : retrofit2.Callback<ListMeals>{
@@ -35,4 +47,8 @@ class HomeViewModel():ViewModel(){
     fun obRandomMeal():LiveData<Meal>{
         return randomMealLD
     }
+
+    fun getUser() = viewModelScope.launch {
+        _user.value = Resource.Loading
+        _user.value = userRepository.login() }
 }

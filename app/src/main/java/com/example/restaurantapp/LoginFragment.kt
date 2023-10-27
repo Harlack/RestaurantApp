@@ -36,6 +36,9 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
                     requireActivity().startNewActivity(MainActivity::class.java)
 
                 }
+                is Resource.Loading -> {
+                    binding.progressBar.visible(true)
+                }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(),"Login Failed",Toast.LENGTH_LONG).show()
                 }

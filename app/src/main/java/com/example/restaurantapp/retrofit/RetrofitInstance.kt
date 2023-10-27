@@ -1,7 +1,12 @@
 package com.example.restaurantapp.retrofit
 
+import android.util.JsonToken
+import android.util.Log
+import com.google.gson.JsonObject
 import com.intuit.sdp.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,12 +23,30 @@ object RetrofitInstance {
     }
 
     fun <Api> dbAPI(
-        api: Class<Api>
+        api: Class<Api>,
+        token: String? = null
     ) : Api {
+        val request : Request = Request.Builder()
+        .url("http://164.90.183.62/login")
+            .build()
+        val client = OkHttpClient()
+
+        try {
+            val response: Response = client.newCall(request).execute()
+            val responseBody : String? = response.body?.string()
+            val token : String? = response.headers["Authorization"]
+            Log.d("token",token.toString())
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
         return Retrofit.Builder()
             .baseUrl("http://164.90.183.62/")
             .client(OkHttpClient()
                 .newBuilder()
+                .addInterceptor{ chain ->
+                    chain.proceed(chain.request().newBuilder().also {
+                        it.addHeader("Authorization", "Bearer $token")
+                    }.build())}
                 .also { client ->
                 if(BuildConfig.DEBUG){
                     val logging = HttpLoggingInterceptor()

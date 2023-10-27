@@ -14,8 +14,11 @@ import com.example.restaurantapp.MealActivity
 import com.example.restaurantapp.databinding.FragmentHomeBinding
 import com.example.restaurantapp.meals.Meal
 import com.example.restaurantapp.meals.ListMeals
+import com.example.restaurantapp.repository.UserRepository
+import com.example.restaurantapp.retrofit.Resource
 import com.example.restaurantapp.retrofit.RetrofitInstance
 import com.example.restaurantapp.viewModel.HomeViewModel
+import com.example.restaurantapp.visible
 import retrofit2.Call
 import retrofit2.Response
 
@@ -25,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var myMeal: Meal
+
     companion object{
         const val MEAL_ID = "MEAL_ID"
         const val MEAL_NAME = "MEAL_NAME"
@@ -48,12 +52,36 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val UserApi = RetrofitInstance.dbAPI(UserRepository::class.java)
+        binding.progressBar.visible(true)
         homeViewModel.getRandomMeal()
+        homeViewModel.getUser()
+        homeViewModel.user.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is Resource.Success -> {
+                    binding.progressBar.visible(false)
+                    binding.userName.text = it.value.data.firstName
+                    Log.d("Home", "Success: ${it.value.data.firstName}")
+
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.visible(true)
+                    Log.d("Home", "Loading")
+                }
+                is Resource.Failure -> {
+                    binding.progressBar.visible(false)
+                    Log.d("Home", "Failure: ${it.errorBody}")
+                }
+            }
+        })
         observer()
         onRandomMealClick()
 
     }
 
+    private fun setUserName() {
+
+    }
     private fun onRandomMealClick() {
         binding.mealShowCard.setOnClickListener{
             val intent = Intent(activity,MealActivity::class.java)
