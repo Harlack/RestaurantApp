@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -22,22 +23,33 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.loginResponse.observe(viewLifecycleOwner, Observer {
-            when(it){
-                is Resource.Success<*> -> {
 
+        binding.progressBar.visible(false)
+        binding.loginInButton.enable(false)
+        vm.loginResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBar.visible(false)
+            when(it){
+                is Resource.Success -> {
                     Toast.makeText(requireContext(),"cc",Toast.LENGTH_LONG).show()
-                    lifecycleScope.launch { userPreferences.saveAuthToken(it.value.toString())}
+                    vm.saveAuthToken(it.value.data.token)
                     TODO("Dodać przekazanie tokenu")
+                    requireActivity().startNewActivity(MainActivity::class.java)
 
                 }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(),"Login Failed",Toast.LENGTH_LONG).show()
                 }
         } })
+
+        binding.userLogin.addTextChangedListener {
+            val email = binding.userLogin.text.toString().trim()
+            binding.loginInButton.enable(email.isNotEmpty() && binding.userPassword.text.toString().trim().isNotEmpty())
+        }
+
         binding.loginInButton.setOnClickListener {
-            val email = binding.loginText.text.toString().trim()
-            val password = binding.passwordText.text.toString().trim()
+            val email = binding.userLogin.text.toString().trim()
+            val password = binding.userPassword.text.toString().trim()
+            binding.progressBar.visible(true)
             vm.login(email, password)
         }
     }
@@ -49,7 +61,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         container: ViewGroup?
     ) = FragmentLoginBinding.inflate(inflater,container,false)
 
-    override fun getFragmentRepository() = AuthRepository(remoteDataSource.dbAPI(AuthAPI::class.java))
+    override fun getFragmentRepository() = AuthRepository(remoteDataSource.dbAPI(AuthAPI::class.java), userPreferences)
 
 
 }
