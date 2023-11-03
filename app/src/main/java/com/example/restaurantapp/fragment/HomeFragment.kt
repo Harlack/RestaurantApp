@@ -7,20 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+
 import com.bumptech.glide.Glide
 import com.example.restaurantapp.MealActivity
 import com.example.restaurantapp.databinding.FragmentHomeBinding
 import com.example.restaurantapp.meals.Meal
-import com.example.restaurantapp.meals.ListMeals
-import com.example.restaurantapp.repository.UserRepository
-import com.example.restaurantapp.retrofit.Resource
-import com.example.restaurantapp.retrofit.RetrofitInstance
+import com.example.restaurantapp.user.LoginData
 import com.example.restaurantapp.viewModel.HomeViewModel
-import com.example.restaurantapp.visible
-import retrofit2.Call
-import retrofit2.Response
 
 
 class HomeFragment : Fragment() {
@@ -39,7 +34,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
-
     }
 
     override fun onCreateView(
@@ -52,36 +46,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val UserApi = RetrofitInstance.dbAPI(UserRepository::class.java)
-        binding.progressBar.visible(true)
-        homeViewModel.getRandomMeal()
-        homeViewModel.getUser()
-        homeViewModel.user.observe(viewLifecycleOwner, Observer {
-            when(it) {
-                is Resource.Success -> {
-                    binding.progressBar.visible(false)
-                    binding.userName.text = it.value.data.firstName
-                    Log.d("Home", "Success: ${it.value.data.firstName}")
-
-                }
-                is Resource.Loading -> {
-                    binding.progressBar.visible(true)
-                    Log.d("Home", "Loading")
-                }
-                is Resource.Failure -> {
-                    binding.progressBar.visible(false)
-                    Log.d("Home", "Failure: ${it.errorBody}")
-                }
-            }
-        })
+        setUsername()
         observer()
+        homeViewModel.getRandomMeal()
         onRandomMealClick()
 
     }
 
-    private fun setUserName() {
 
-    }
     private fun onRandomMealClick() {
         binding.mealShowCard.setOnClickListener{
             val intent = Intent(activity,MealActivity::class.java)
@@ -92,6 +64,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setUsername(){
+        val user = activity?.intent?.getSerializableExtra("user") as? LoginData
+        Log.d("user",user.toString())
+        if (user != null) {
+            binding.userName.text = user.email
+        }
+    }
     private fun observer() {
         homeViewModel.obRandomMeal().observe(viewLifecycleOwner
         ) { t ->

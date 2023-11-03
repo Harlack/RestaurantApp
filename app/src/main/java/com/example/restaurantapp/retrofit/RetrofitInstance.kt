@@ -22,40 +22,23 @@ object RetrofitInstance {
             .create(MealAPI::class.java)
     }
 
-    fun <Api> dbAPI(
-        api: Class<Api>,
-        token: String? = null
-    ) : Api {
-        val request : Request = Request.Builder()
-        .url("http://164.90.183.62/login")
-            .build()
-        val client = OkHttpClient()
+    fun retrofit() : Retrofit {
 
-        try {
-            val response: Response = client.newCall(request).execute()
-            val responseBody : String? = response.body?.string()
-            val token : String? = response.headers["Authorization"]
-            Log.d("token",token.toString())
-        }catch (e: Exception){
-            e.printStackTrace()
-        }
-        return Retrofit.Builder()
-            .baseUrl("http://164.90.183.62/")
-            .client(OkHttpClient()
-                .newBuilder()
-                .addInterceptor{ chain ->
-                    chain.proceed(chain.request().newBuilder().also {
-                        it.addHeader("Authorization", "Bearer $token")
-                    }.build())}
-                .also { client ->
-                if(BuildConfig.DEBUG){
-                    val logging = HttpLoggingInterceptor()
-                    logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-                    client.addInterceptor(logging)
-                }
-            }.build())
+        val logging = HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        val httpClient = OkHttpClient.Builder().addInterceptor(logging).build();
+
+        val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(api)
+            .baseUrl("http://164.90.183.62/")
+            .client(httpClient)
+            .build();
+        return retrofit;
     }
+    fun getService() : UserAPI{
+        val userService = retrofit().create(UserAPI::class.java);
+        return userService;
+    }
+
 }

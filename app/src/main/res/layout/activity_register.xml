@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.RegisterActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="20dp">
+        <TextView
+            android:id="@+id/loginView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/loginEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test@wp.pl"
+            app:layout_constraintTop_toBottomOf="@id/loginView"
+            app:layout_constraintStart_toStartOf="@id/loginView"
+
+            />
+
+        <TextView
+            android:id="@+id/passwordView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            app:layout_constraintTop_toBottomOf="@id/loginEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            />
+
+        <EditText
+            android:id="@+id/passwordEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test123$"
+            app:layout_constraintTop_toBottomOf="@id/passwordView"
+
+            />
+        <TextView
+            android:id="@+id/imieView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imie"
+            app:layout_constraintTop_toBottomOf="@id/passwordEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            />
+        <EditText
+            android:id="@+id/imieEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test"
+            app:layout_constraintTop_toBottomOf="@id/imieView"
+            />
+
+        <TextView
+            android:id="@+id/nazwiskoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nazwisko"
+            />
+        <EditText
+            android:id="@+id/nazwiskoEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test"
+            />
+
+        <TextView
+            android:id="@+id/telView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telefon"
+            />
+
+        <EditText
+            android:id="@+id/telefonEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="594203412"
+            android:inputType="number"
+            />
+
+        <Button
+            android:id="@+id/RegisterBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            app:layout_constraintStart_toStartOf="@id/telefonEdit"
+            app:layout_constraintEnd_toEndOf="@id/telefonEdit"
+            />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,15 +18,6 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
-        val userPreferences = UserPreferences(this)
-        userPreferences.authToken.asLiveData().observe(this) {
-            val activity = if (it == null) AuthActivity::class.java else HomeActivity::class.java
-            startActivity(Intent(this, activity))
-            finish()
-        }
-
-
         NavigationUI.setupWithNavController(bottomNavigationView,navController)
 
 

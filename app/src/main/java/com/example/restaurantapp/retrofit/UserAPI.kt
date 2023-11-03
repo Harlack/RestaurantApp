@@ -1,9 +1,16 @@
 package com.example.restaurantapp.retrofit
 
-import com.example.restaurantapp.user.LoginResponse
-import retrofit2.http.GET
+import com.example.restaurantapp.user.LoginData
+import com.example.restaurantapp.user.RegisterData
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface UserAPI {
-    @GET("users")
-    suspend fun getUser(): LoginResponse
+    @POST("api/auth")
+    fun login(@Body user : LoginData) : Call<LoginData>
+
+    @POST("api/users")
+    fun register(@Body user : RegisterData) : Call<RegisterData>
+
 }
