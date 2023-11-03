@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.restaurantapp.MainActivity
 import com.example.restaurantapp.R
@@ -21,12 +22,27 @@ class LoginActivity : AppCompatActivity() {
         var login : EditText = findViewById(R.id.loginEdit)
         var password : EditText = findViewById(R.id.passwordEdit)
         var loginBtn : Button = findViewById(R.id.LoginBtn)
+        var registerBtn : Button = findViewById(R.id.RegisterBtn)
+        var guestLogin : TextView = findViewById(R.id.guestLogin)
+
         var user = LoginData()
 
         loginBtn.setOnClickListener {
             user.email = login.text.toString()
             user.password = password.text.toString()
             loginUser(user)
+        }
+
+        registerBtn.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+            finish()
+        }
+
+        guestLogin.setOnClickListener(){
+            var intent = Intent(this@LoginActivity, MainActivity::class.java)
+            Toast.makeText(this@LoginActivity, "Login as guest", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
+            finish()
         }
 
     }

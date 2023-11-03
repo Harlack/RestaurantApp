@@ -44,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
             override fun onResponse(call: Call<RegisterData>, response: Response<RegisterData>) {
                 if(response.isSuccessful){
                     val dataResponse : RegisterData = response.body()!!
-                    Toast.makeText(this@RegisterActivity, "Register Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@RegisterActivity, "Register Success, please Log in", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                     finish()
                 }else{

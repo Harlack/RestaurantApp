@@ -3,12 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/restaurantmap"
     tools:context=".fragment.ReservationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <!-- Przyciski do rezerwacji stolików na mapie -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_140sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_250sdp">
+
+        <Button
+            android:id="@+id/stolik1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:text="1"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+        <Button
+            android:id="@+id/stolik2"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:text="2"
+
+            android:textColor="@color/black"
+            android:layout_marginTop="55dp"
+            app:layout_constraintStart_toStartOf="@id/stolik1"
+            app:layout_constraintTop_toBottomOf="@id/stolik1"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </FrameLayout>

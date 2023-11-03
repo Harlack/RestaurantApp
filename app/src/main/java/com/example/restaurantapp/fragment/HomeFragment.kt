@@ -69,6 +69,8 @@ class HomeFragment : Fragment() {
         Log.d("user",user.toString())
         if (user != null) {
             binding.userName.text = user.email
+        }else{
+            binding.userName.text = "Guest"
         }
     }
     private fun observer() {
