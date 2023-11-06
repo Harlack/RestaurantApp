@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.lifecycle.ViewModelProviders
 
 import com.bumptech.glide.Glide
@@ -14,16 +15,18 @@ import com.example.restaurantapp.MealActivity
 import com.example.restaurantapp.MealsAdapter
 import com.example.restaurantapp.databinding.FragmentHomeBinding
 import com.example.restaurantapp.meals.Meal
+import com.example.restaurantapp.meals.Meals
 import com.example.restaurantapp.user.LoginData
 import com.example.restaurantapp.viewModel.HomeViewModel
 
 
-class HomeFragment : Fragment(), MealsAdapter.MealInterface {
+class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var myMeal: Meal
-    private lateinit var mealsAdapter: MealsAdapter
+    private lateinit var mealsList: List<Meal>
+    private lateinit var adapter: MealsAdapter
 
     companion object{
         const val MEAL_ID = "MEAL_ID"
@@ -37,6 +40,8 @@ class HomeFragment : Fragment(), MealsAdapter.MealInterface {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
         myMeal = Meal()
+        mealsList = emptyList()
+        adapter = MealsAdapter(mealsList)
     }
 
     override fun onCreateView(
@@ -49,13 +54,38 @@ class HomeFragment : Fragment(), MealsAdapter.MealInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter.notifyDataSetChanged()
         setUsername()
-        observer()
-        mealsAdapter = MealsAdapter(myMeal.itemCallback)
-        binding.recyclerview.adapter = mealsAdapter
+
+        binding.recyclerview.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
+        binding.recyclerview.setHasFixedSize(true)
         homeViewModel.getRandomMeal()
 
+        observerRandom()
+        observerList()
         onRandomMealClick()
+        binding.recyclerview.adapter = adapter
+
+        adapter.setOnItemClickListener(object : MealsAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(activity, MealActivity::class.java)
+                intent.putExtra(MEAL_ID, mealsList[position]._id)
+                intent.putExtra(MEAL_NAME, mealsList[position].productName)
+                intent.putExtra(MEAL_THUMB, mealsList[position].productImage)
+                intent.putExtra(MEAL_INDEX, mealsList[position].__v)
+                startActivity(intent)
+            }
+        })
+
+    }
+
+    private fun observerList() {
+        homeViewModel.getListOfMeals().observe(viewLifecycleOwner
+        ) { t: List<Meal> ->
+            mealsList = t
+            adapter = MealsAdapter(mealsList)
+
+        }
 
     }
 
@@ -73,14 +103,13 @@ class HomeFragment : Fragment(), MealsAdapter.MealInterface {
 
     private fun setUsername(){
         val user = activity?.intent?.getSerializableExtra("user") as? LoginData
-        Log.d("user",user.toString())
         if (user != null) {
             binding.userName.text = user.email
         }else{
             binding.userName.text = "Guest"
         }
     }
-    private fun observer() {
+    private fun observerRandom() {
         homeViewModel.obRandomMeal().observe(viewLifecycleOwner
         ) { t : Meal ->
             Glide.with(this@HomeFragment)
@@ -91,13 +120,7 @@ class HomeFragment : Fragment(), MealsAdapter.MealInterface {
         }
     }
 
-    override fun addMeal(meal: Meal) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onItemClick(meal: Meal) {
-        TODO("Not yet implemented")
-    }
 
 }
 

@@ -14,7 +14,7 @@ import kotlin.math.log
 
 class HomeViewModel():ViewModel(){
     private var randomMealLD = MutableLiveData<Meal>()
-
+    private var listOfMeals = MutableLiveData<List<Meal>>()
     fun getRandomMeal(){
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<Meals> {
             override fun onResponse(call: Call<Meals>, response: Response<Meals>) {
@@ -26,6 +26,7 @@ class HomeViewModel():ViewModel(){
                     Log.d("Generated","Meals name: ${randomMealGenerated.productName}" +
                             ", id: ${randomMealGenerated._id}, index: ${randomMealGenerated.__v}")
                     randomMealLD.value = randomMealGenerated
+                    listOfMeals.value = mealList!!
 
                 }else{
                     Log.d("Home",response.body().toString())
@@ -37,6 +38,10 @@ class HomeViewModel():ViewModel(){
                 Log.d("Home",t.message.toString())
             }
         })
+    }
+
+    fun getListOfMeals():LiveData<List<Meal>>{
+        return listOfMeals
     }
     fun obRandomMeal():LiveData<Meal>{
         return randomMealLD
