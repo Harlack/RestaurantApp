@@ -1,57 +1,58 @@
 package com.example.restaurantapp.meals
 
-data class Meal(
-    val dateModified: Any,
-    val idMeal: String,
-    val strArea: String,
-    val strCategory: String,
-    val strCreativeCommonsConfirmed: Any,
-    val strDrinkAlternate: Any,
-    val strImageSource: Any,
-    val strIngredient1: String,
-    val strIngredient10: String,
-    val strIngredient11: String,
-    val strIngredient12: String,
-    val strIngredient13: String,
-    val strIngredient14: String,
-    val strIngredient15: String,
-    val strIngredient16: String,
-    val strIngredient17: String,
-    val strIngredient18: String,
-    val strIngredient19: String,
-    val strIngredient2: String,
-    val strIngredient20: String,
-    val strIngredient3: String,
-    val strIngredient4: String,
-    val strIngredient5: String,
-    val strIngredient6: String,
-    val strIngredient7: String,
-    val strIngredient8: String,
-    val strIngredient9: String,
-    val strInstructions: String,
-    val strMeal: String,
-    val strMealThumb: String,
-    val strMeasure1: String,
-    val strMeasure10: String,
-    val strMeasure11: String,
-    val strMeasure12: String,
-    val strMeasure13: String,
-    val strMeasure14: String,
-    val strMeasure15: String,
-    val strMeasure16: String,
-    val strMeasure17: String,
-    val strMeasure18: String,
-    val strMeasure19: String,
-    val strMeasure2: String,
-    val strMeasure20: String,
-    val strMeasure3: String,
-    val strMeasure4: String,
-    val strMeasure5: String,
-    val strMeasure6: String,
-    val strMeasure7: String,
-    val strMeasure8: String,
-    val strMeasure9: String,
-    val strSource: String,
-    val strTags: String,
-    val strYoutube: String
-)
+import androidx.recyclerview.widget.DiffUtil
+
+class Meal {
+    var __v: Int = 0
+    val _id: String = ""
+    val productCategory: String = ""
+    val productDescription: String = ""
+    val productImage: String = ""
+    val productName: String = ""
+    val productPrice: String = ""
+    val productStatus: String = ""
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Meal
+
+        if (__v != other.__v) return false
+        if (_id != other._id) return false
+        if (productCategory != other.productCategory) return false
+        if (productDescription != other.productDescription) return false
+        if (productImage != other.productImage) return false
+        if (productName != other.productName) return false
+        if (productPrice != other.productPrice) return false
+        if (productStatus != other.productStatus) return false
+        if (itemCallback != other.itemCallback) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = __v
+        result = 31 * result + _id.hashCode()
+        result = 31 * result + productCategory.hashCode()
+        result = 31 * result + productDescription.hashCode()
+        result = 31 * result + productImage.hashCode()
+        result = 31 * result + productName.hashCode()
+        result = 31 * result + productPrice.hashCode()
+        result = 31 * result + productStatus.hashCode()
+        result = 31 * result + itemCallback.hashCode()
+        return result
+    }
+
+    var itemCallback : DiffUtil.ItemCallback<Meal>  = object : DiffUtil.ItemCallback<Meal>() {
+        override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
+            return oldItem._id.equals(newItem._id)
+        }
+
+        override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean {
+            return oldItem.equals(newItem)
+        }
+    }
+
+
+}

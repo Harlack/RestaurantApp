@@ -1,15 +1,14 @@
 package com.example.restaurantapp.retrofit
 
-import com.example.restaurantapp.meals.ListMeals
+import com.example.restaurantapp.meals.Meals
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MealAPI {
 
-    @GET("random.php")
-    fun getRandomMeal():Call<ListMeals>
+    @GET("products")
+    fun getRandomMeal():Call<Meals>
 
-    @GET("lookup.php?")
-    fun getMealDetails(@Query("i") id:String) : Call<ListMeals>
 }

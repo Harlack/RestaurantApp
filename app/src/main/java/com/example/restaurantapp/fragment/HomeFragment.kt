@@ -7,33 +7,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
 import com.bumptech.glide.Glide
 import com.example.restaurantapp.MealActivity
+import com.example.restaurantapp.MealsAdapter
 import com.example.restaurantapp.databinding.FragmentHomeBinding
 import com.example.restaurantapp.meals.Meal
 import com.example.restaurantapp.user.LoginData
 import com.example.restaurantapp.viewModel.HomeViewModel
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), MealsAdapter.MealInterface {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var myMeal: Meal
+    private lateinit var mealsAdapter: MealsAdapter
 
     companion object{
         const val MEAL_ID = "MEAL_ID"
         const val MEAL_NAME = "MEAL_NAME"
         const val MEAL_THUMB = "MEAL_THUMB"
+        const val MEAL_INDEX = "MEAL_INDEX"
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
+        myMeal = Meal()
     }
 
     override fun onCreateView(
@@ -48,7 +51,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUsername()
         observer()
+        mealsAdapter = MealsAdapter(myMeal.itemCallback)
+        binding.recyclerview.adapter = mealsAdapter
         homeViewModel.getRandomMeal()
+
         onRandomMealClick()
 
     }
@@ -57,9 +63,10 @@ class HomeFragment : Fragment() {
     private fun onRandomMealClick() {
         binding.mealShowCard.setOnClickListener{
             val intent = Intent(activity,MealActivity::class.java)
-            intent.putExtra(MEAL_ID,myMeal.idMeal)
-            intent.putExtra(MEAL_NAME,myMeal.strMeal)
-            intent.putExtra(MEAL_THUMB,myMeal.strMealThumb)
+            intent.putExtra(MEAL_ID,myMeal._id)
+            intent.putExtra(MEAL_NAME,myMeal.productName)
+            intent.putExtra(MEAL_THUMB,myMeal.productImage)
+            intent.putExtra(MEAL_INDEX,myMeal.__v)
             startActivity(intent)
         }
     }
@@ -75,13 +82,21 @@ class HomeFragment : Fragment() {
     }
     private fun observer() {
         homeViewModel.obRandomMeal().observe(viewLifecycleOwner
-        ) { t ->
+        ) { t : Meal ->
             Glide.with(this@HomeFragment)
-                .load(t!!.strMealThumb)
+                .load(t.productImage)
                 .into(binding.mealShowCard)
 
             this.myMeal = t
         }
+    }
+
+    override fun addMeal(meal: Meal) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemClick(meal: Meal) {
+        TODO("Not yet implemented")
     }
 
 }

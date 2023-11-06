@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.restaurantapp.meals.ListMeals
 import com.example.restaurantapp.meals.Meal
+import com.example.restaurantapp.meals.Meals
 import com.example.restaurantapp.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,18 +14,18 @@ import retrofit2.Response
 class MealViewModel():ViewModel() {
     private var mealDetailsLiveData = MutableLiveData<Meal>()
 
-    fun getMealDetail(id:String){
-        RetrofitInstance.api.getMealDetails(id).enqueue(object : Callback<ListMeals> {
-            override fun onResponse(call: Call<ListMeals>, response: Response<ListMeals>) {
+    fun getMealDetail(index:Int){
+        RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<Meals> {
+            override fun onResponse(call: Call<Meals>, response: Response<Meals>) {
                 if(response.body()!=null){
-                    mealDetailsLiveData.value = response.body()!!.meals[0]
+                    mealDetailsLiveData.value = response.body()!!.data[index]
                 }
                 else{
                     return
                 }
             }
 
-            override fun onFailure(call: Call<ListMeals>, t: Throwable) {
+            override fun onFailure(call: Call<Meals>, t: Throwable) {
                 Log.d("MealActivity", t.message.toString())
             }
 

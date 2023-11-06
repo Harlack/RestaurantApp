@@ -16,7 +16,7 @@ object RetrofitInstance {
 
     val api:MealAPI by lazy {
         Retrofit.Builder()
-            .baseUrl("https://www.themealdb.com/api/json/v1/1/")
+            .baseUrl("http://164.90.183.62/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MealAPI::class.java)

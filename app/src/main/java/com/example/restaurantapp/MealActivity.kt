@@ -12,6 +12,7 @@ import com.example.restaurantapp.databinding.ActivityMealBinding
 import com.example.restaurantapp.fragment.HomeFragment
 import com.example.restaurantapp.meals.Meal
 import com.example.restaurantapp.viewModel.MealViewModel
+import kotlin.properties.Delegates
 
 class MealActivity : AppCompatActivity() {
 
@@ -19,6 +20,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealID: String
     private lateinit var mealName: String
     private lateinit var mealThumb: String
+    private var mealIndex: Int = 0
     private lateinit var mealMvvm: MealViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +32,8 @@ class MealActivity : AppCompatActivity() {
         mealMvvm = ViewModelProviders.of(this)[MealViewModel::class.java]
 
         getMealInformation()
-
         setMealInformation()
-
-        mealMvvm.getMealDetail(mealID)
+        mealMvvm.getMealDetail(mealIndex)
         loadingBar()
         observerMealDetailsLiveData()
 
@@ -43,13 +43,13 @@ class MealActivity : AppCompatActivity() {
         mealMvvm.observerMealDetailsLiveData().observe(this,object : Observer<Meal>{
             override fun onChanged(value: Meal) {
                 onRespondBar()
-                binding.categoryDetail.text = "Category : ${value!!.strCategory}"
-                binding.cashDetail.text = "Area : ${value!!.strArea}"
-                binding.descriptionDetail.text = "Instruction for meal: ${value!!.strInstructions}"
+                binding.categoryDetail.text = "Category : ${value!!.productCategory}"
+                binding.cashDetail.text = "Price : ${value!!.productPrice}"
+                binding.descriptionDetail.text = "Description: ${value!!.productCategory}"
                 binding.addToCardButton.setOnClickListener {
                     getSharedPreferences("Shopping_cart", Context.MODE_PRIVATE).edit()
                         .apply(){
-                            putString("cash_amount","${value!!.strArea}")
+                            putString("cash_amount","${value!!.productPrice}")
                             Log.d("LOG","Jedzenie")
                         }.apply()
                 }
@@ -72,6 +72,7 @@ class MealActivity : AppCompatActivity() {
         mealID = intent.getStringExtra(HomeFragment.MEAL_ID).toString()
         mealName = intent.getStringExtra(HomeFragment.MEAL_NAME).toString()
         mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB).toString()
+        mealIndex = intent.getIntExtra(HomeFragment.MEAL_INDEX,0)
     }
 
     private fun loadingBar() {
