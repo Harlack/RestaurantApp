@@ -16,7 +16,7 @@ import com.example.restaurantapp.meals.Meal
 import com.example.restaurantapp.meals.Meals
 import okhttp3.internal.notify
 
-class MealsAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealsAdapter.ViewHolder>(){
+class MealsAdapter(private var mealList: List<Meal>) : RecyclerView.Adapter<MealsAdapter.ViewHolder>(){
 
     private lateinit var onItemClickListener: OnItemClickListener
 
@@ -44,13 +44,16 @@ class MealsAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<Meal
         Glide.with(holder.itemView.context).load(item.productImage).into(holder.image)
     }
 
+    fun updateData(newData: List<Meal>) {
+        mealList = newData
+        notifyDataSetChanged()
+    }
 
 
     class ViewHolder(itemView : View, listener: OnItemClickListener): RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.mealimg)
         val name: TextView = itemView.findViewById(R.id.mealname)
         val price: TextView = itemView.findViewById(R.id.mealprice)
-
         init {
             itemView.setOnClickListener{
                 listener.onItemClick(adapterPosition)

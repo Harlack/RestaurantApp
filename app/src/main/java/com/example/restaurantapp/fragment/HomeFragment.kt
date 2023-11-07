@@ -1,5 +1,6 @@
 package com.example.restaurantapp.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 
 import com.bumptech.glide.Glide
@@ -18,6 +20,7 @@ import com.example.restaurantapp.meals.Meal
 import com.example.restaurantapp.meals.Meals
 import com.example.restaurantapp.user.LoginData
 import com.example.restaurantapp.viewModel.HomeViewModel
+import okhttp3.internal.notify
 
 
 class HomeFragment : Fragment() {
@@ -40,8 +43,9 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
         myMeal = Meal()
-        mealsList = emptyList()
-        adapter = MealsAdapter(mealsList)
+        mealsList = mutableListOf()
+        adapter = MealsAdapter(emptyList())
+
     }
 
     override fun onCreateView(
@@ -54,9 +58,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter.notifyDataSetChanged()
         setUsername()
-
+        Log.d("Home1",mealsList.toString())
         binding.recyclerview.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         binding.recyclerview.setHasFixedSize(true)
         homeViewModel.getRandomMeal()
@@ -76,15 +79,14 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
         })
-
+        Log.d("Home2",mealsList.toString())
     }
 
     private fun observerList() {
         homeViewModel.getListOfMeals().observe(viewLifecycleOwner
         ) { t: List<Meal> ->
             mealsList = t
-            adapter = MealsAdapter(mealsList)
-
+            adapter.updateData(mealsList)
         }
 
     }
@@ -119,6 +121,7 @@ class HomeFragment : Fragment() {
             this.myMeal = t
         }
     }
+
 
 
 

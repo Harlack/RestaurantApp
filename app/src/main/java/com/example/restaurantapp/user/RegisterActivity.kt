@@ -3,11 +3,13 @@ package com.example.restaurantapp.user
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.restaurantapp.R
 import com.example.restaurantapp.retrofit.RetrofitInstance
+import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         val lastName : EditText = findViewById(R.id.nazwiskoEdit)
         val phone : EditText = findViewById(R.id.telefonEdit)
 
+
         var user = RegisterData()
 
         registerButton.setOnClickListener {
@@ -35,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
             user.role = "user"
             registerUser(user)
         }
+
 
     }
     fun registerUser(dataRequest : RegisterData){
