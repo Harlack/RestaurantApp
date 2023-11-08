@@ -1,20 +1,15 @@
-package com.example.restaurantapp
+package com.example.restaurantapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.helper.widget.Carousel.Adapter
 
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.restaurantapp.databinding.CartRowBinding
+import com.example.restaurantapp.R
 import com.example.restaurantapp.meals.Meal
-import com.example.restaurantapp.meals.Meals
-import okhttp3.internal.notify
 
 class MealsAdapter(private var mealList: List<Meal>) : RecyclerView.Adapter<MealsAdapter.ViewHolder>(){
 

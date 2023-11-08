@@ -1,6 +1,5 @@
 package com.example.restaurantapp.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,19 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 
 import com.bumptech.glide.Glide
 import com.example.restaurantapp.MealActivity
-import com.example.restaurantapp.MealsAdapter
+import com.example.restaurantapp.adapter.MealsAdapter
 import com.example.restaurantapp.databinding.FragmentHomeBinding
 import com.example.restaurantapp.meals.Meal
-import com.example.restaurantapp.meals.Meals
 import com.example.restaurantapp.user.LoginData
 import com.example.restaurantapp.viewModel.HomeViewModel
-import okhttp3.internal.notify
 
 
 class HomeFragment : Fragment() {

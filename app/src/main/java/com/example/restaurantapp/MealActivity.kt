@@ -44,13 +44,14 @@ class MealActivity : AppCompatActivity() {
             override fun onChanged(value: Meal) {
                 onRespondBar()
                 binding.categoryDetail.text = "Category : ${value!!.productCategory}"
-                binding.cashDetail.text = "Price : ${value!!.productPrice}"
+                binding.cashDetail.text = "Price : ${value!!.productPrice} zł"
                 binding.descriptionDetail.text = "Description: ${value!!.productCategory}"
                 binding.addToCardButton.setOnClickListener {
                     getSharedPreferences("Shopping_cart", Context.MODE_PRIVATE).edit()
                         .apply(){
+                            putString("meal_id","${value!!._id}")
+                            putString("meal_name","${value!!.productName}")
                             putString("cash_amount","${value!!.productPrice}")
-                            Log.d("LOG","Jedzenie")
                         }.apply()
                 }
             }
