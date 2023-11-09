@@ -11,6 +11,11 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.restaurantapp.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.restaurantapp.fragment.CartFragment"
         android:label="fragment_cart"
@@ -25,4 +30,5 @@
         android:name="com.example.restaurantapp.fragment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+
 </navigation>

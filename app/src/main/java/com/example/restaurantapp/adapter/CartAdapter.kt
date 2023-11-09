@@ -30,6 +30,23 @@ class CartAdapter(private var cartMealList: ArrayList<Meal>) : RecyclerView.Adap
         holder.price.text = item.productPrice
         holder.quantity.text = "1"
         Glide.with(holder.itemView.context).load(item.productImage).into(holder.image)
+        holder.addButton.setOnClickListener {
+            var quantity = holder.quantity.text.toString().toInt()
+            quantity++
+            holder.quantity.text = quantity.toString()
+        }
+        holder.minusButton.setOnClickListener {
+            var quantity = holder.quantity.text.toString().toInt()
+            if (quantity > 1) {
+                quantity--
+                holder.quantity.text = quantity.toString()
+            }
+        }
+        holder.deleteButton.setOnClickListener {
+            cartMealList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, cartMealList.size)
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
