@@ -1,59 +1,111 @@
 package com.example.restaurantapp.fragment
 
-import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.restaurantapp.R
 import com.example.restaurantapp.adapter.CartAdapter
 import com.example.restaurantapp.databinding.FragmentCartBinding
-import com.example.restaurantapp.meals.Meal
-import com.example.restaurantapp.visible
+import com.example.restaurantapp.meals.ShopMeal
+import com.example.restaurantapp.user.LoginData
+import com.example.restaurantapp.viewModel.CartViewModel
+
+
 
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
+    private lateinit var cartMealList: ArrayList<ShopMeal>
+    private lateinit var cartViewModel: CartViewModel
+    private lateinit var adapter: CartAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        cartMealList = ArrayList()
+        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+        adapter = CartAdapter(kotlin.collections.ArrayList())
 
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+        binding = FragmentCartBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var cartMealList = ArrayList<Meal>()
-        val sharedPreferences = activity?.getSharedPreferences("Shopping_cart", MODE_PRIVATE)
-        if (sharedPreferences != null) {
-            cartMealList = sharedPreferences.all as ArrayList<Meal>
-            Log.d("Shared",cartMealList.toString())
-        }else{
 
+        binding.cartRecyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.cartRecyclerView.setHasFixedSize(true)
+        cartViewModel.loadCart()
+
+        cartViewModel.cartMealListLD.observe(viewLifecycleOwner) { t -> ArrayList<ShopMeal>()
+            cartMealList = t
+            adapter.updateData(cartMealList)
             changeVisibility()
+            setTotalPrice()
+
         }
 
-        var cartRecyclerView = view.findViewById<RecyclerView>(R.id.cartRecyclerView)
-        cartRecyclerView.layoutManager = LinearLayoutManager(context)
-        cartRecyclerView.adapter = CartAdapter(cartMealList)
+        binding.cartRecyclerView.adapter = adapter
 
+        adapter.setOnDeleteListener(object : CartAdapter.Listeners{
+            override fun onDelete(position: Int) {
+                cartMealList.removeAt(position)
+                adapter.updateData(cartMealList)
+                cartViewModel.saveCart(cartMealList)
+                if (cartMealList.isEmpty()) {
+                    changeVisibility()
+                }
+                setTotalPrice()
+            }
+
+            override fun onAdd(position: Int) {
+                cartMealList[position].quantity++
+                adapter.updateData(cartMealList)
+                cartViewModel.saveCart(cartMealList)
+                setTotalPrice()
+            }
+
+            override fun onMinus(position: Int) {
+                if (cartMealList[position].quantity > 1){
+                    cartMealList[position].quantity--
+                    adapter.updateData(cartMealList)
+                    cartViewModel.saveCart(cartMealList)
+                    setTotalPrice()
+                }
+            }
+        })
+
+    }
+
+    private fun setTotalPrice() {
+        var suma = cartMealList.sumOf{it.productPrice.toDouble() * it.quantity.toDouble()}
+            binding.totalPriceTextView.text = "Total price: " +
+                "${String.format("%.2f",suma).toDouble()} zł"
     }
 
     private fun changeVisibility() {
-        binding.cartRecyclerView.visible(false)
-        binding.totalPriceTextView.visible(false)
-        binding.checkoutButton.visible(false)
-        binding.emptyCartMessage.visible(true)
+        if (cartMealList.isEmpty()) {
+            binding.cartRecyclerView.visibility = View.GONE
+            binding.totalPriceTextView.visibility = View.GONE
+            binding.checkoutButton.visibility = View.GONE
+            binding.emptyCartMessage.visibility = View.VISIBLE
+        }else{
+            binding.cartRecyclerView.visibility = View.VISIBLE
+            binding.totalPriceTextView.visibility = View.VISIBLE
+            binding.checkoutButton.visibility = View.VISIBLE
+            binding.emptyCartMessage.visibility = View.GONE
+
+        }
+
     }
+
+
+
 }

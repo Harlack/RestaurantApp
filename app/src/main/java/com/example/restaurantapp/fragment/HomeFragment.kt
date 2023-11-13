@@ -54,7 +54,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUsername()
-        Log.d("Home1",mealsList.toString())
         binding.recyclerview.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         binding.recyclerview.setHasFixedSize(true)
         homeViewModel.getRandomMeal()
@@ -74,7 +73,7 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
         })
-        Log.d("Home2",mealsList.toString())
+
     }
 
     private fun observerList() {

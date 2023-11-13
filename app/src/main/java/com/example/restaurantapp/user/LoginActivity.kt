@@ -41,12 +41,13 @@ class LoginActivity : AppCompatActivity() {
         guestLogin.setOnClickListener(){
             var intent = Intent(this@LoginActivity, MainActivity::class.java)
             Toast.makeText(this@LoginActivity, "Login as guest", Toast.LENGTH_SHORT).show()
+            getSharedPreferences("user", MODE_PRIVATE).edit().putString("user","guest").apply()
             startActivity(intent)
             finish()
         }
 
     }
-    fun loginUser(dataRequest : LoginData){
+    private fun loginUser(dataRequest : LoginData){
         val api = RetrofitInstance
         val loginResponse = api.getService().login(dataRequest)
         loginResponse.enqueue(object : Callback<LoginData> {
@@ -56,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
                     var intent = Intent(this@LoginActivity, MainActivity::class.java)
                     intent.putExtra("user", dataRequest)
                     Toast.makeText(this@LoginActivity, "Login success", Toast.LENGTH_SHORT).show()
+                    getSharedPreferences("user", MODE_PRIVATE).edit().putString("user",dataRequest.email).apply()
                     startActivity(intent)
                     finish()
                 }else{
