@@ -37,7 +37,7 @@
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = cartMealList[position]
             holder.name.text = item.productName
-            holder.price.text = item.productPrice
+            holder.price.text = "${item.productPrice} zł"
             holder.quantity.text = item.quantity.toString()
             Glide.with(holder.itemView.context).load(item.productImage).into(holder.image)
 

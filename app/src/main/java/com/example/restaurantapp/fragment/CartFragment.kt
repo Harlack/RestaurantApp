@@ -85,12 +85,21 @@ class CartFragment : Fragment() {
     }
 
     private fun setTotalPrice() {
-        var suma = cartMealList.sumOf{it.productPrice.toDouble() * it.quantity.toDouble()}
-            binding.totalPriceTextView.text = "Total price: " +
-                "${String.format("%.2f",suma).toDouble()} zł"
+        if (cartMealList.isEmpty()) {
+            binding.totalPriceTextView.text = "Total price: 0.00 zł"
+            return
+        }
+        var suma = cartMealList.sumOf { parsePrice(it.productPrice) * it.quantity.toDouble() }
+        binding.totalPriceTextView.text = "Total price: ${String.format("%.2f", suma)} zł"
     }
 
-    private fun changeVisibility() {
+    private fun parsePrice(price: String): Double {
+            val cleanedPrice = price.replace(",", ".")
+            return cleanedPrice.toDoubleOrNull() ?: 0.0
+        }
+
+
+        private fun changeVisibility() {
         if (cartMealList.isEmpty()) {
             binding.cartRecyclerView.visibility = View.GONE
             binding.totalPriceTextView.visibility = View.GONE

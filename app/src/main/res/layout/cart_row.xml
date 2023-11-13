@@ -25,11 +25,12 @@
         />
     <TextView
         android:id="@+id/mealname"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:text="Name"
+        android:scrollHorizontally="false"
         android:textSize="@dimen/_15ssp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/mealimg"
@@ -40,8 +41,8 @@
         android:layout_height="wrap_content"
         android:text="Price"
         android:textSize="@dimen/_15ssp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_35sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -49,13 +50,12 @@
         android:id="@+id/mealquantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:textSize="@dimen/_15ssp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/mealprice"
-        app:layout_constraintEnd_toStartOf="@id/mealprice"
-        app:layout_constraintStart_toEndOf="@id/mealname"
+        android:text="1"
+        android:layout_marginBottom="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mealimg"
         />
     <ImageButton
         android:id="@+id/delete_button"
@@ -72,22 +72,22 @@
         android:id="@+id/add_button"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:src="@drawable/baseline_add_circle_24"
-        app:layout_constraintStart_toEndOf="@id/mealname"
-        app:layout_constraintTop_toBottomOf="@id/mealname"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/mealquantity"
         />
     <ImageButton
         android:id="@+id/minus_button"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
         android:src="@drawable/baseline_remove_circle_24"
         app:layout_constraintStart_toEndOf="@id/mealquantity"
-        app:layout_constraintTop_toBottomOf="@id/mealname"
-        app:layout_constraintEnd_toStartOf="@id/mealprice"
+        app:layout_constraintBottom_toBottomOf="parent"
+
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
