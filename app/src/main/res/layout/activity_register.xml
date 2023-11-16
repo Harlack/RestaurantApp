@@ -169,7 +169,7 @@
             app:layout_constraintTop_toBottomOf="@id/RegisterBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
-            <ImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_arrow_back_24"
@@ -183,7 +183,7 @@
                 android:text="Back"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_20sdp"
                 />
         </LinearLayout>
 

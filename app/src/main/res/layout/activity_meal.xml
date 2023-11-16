@@ -117,7 +117,7 @@
         android:background="@color/transparent"
         android:layout_margin="@dimen/_15sdp"
         android:layout_gravity="bottom|left">
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_arrow_back_24"
