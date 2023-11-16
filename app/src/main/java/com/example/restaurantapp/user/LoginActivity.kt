@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
 
         registerBtn.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
-            finish()
         }
 
         guestLogin.setOnClickListener(){

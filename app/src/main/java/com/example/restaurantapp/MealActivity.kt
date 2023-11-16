@@ -23,6 +23,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealID: String
     private lateinit var mealName: String
     private lateinit var mealThumb: String
+    private lateinit var mealStatus: String
     private var mealIndex: Int = 0
     private lateinit var mealMvvm: MealViewModel
     private lateinit var cartMvvm: CartViewModel
@@ -32,7 +33,9 @@ class MealActivity : AppCompatActivity() {
         setContentView(R.layout.activity_meal)
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
         mealMvvm = ViewModelProviders.of(this)[MealViewModel::class.java]
         cartMvvm = ViewModelProviders.of(this)[CartViewModel::class.java]
 
@@ -76,6 +79,7 @@ class MealActivity : AppCompatActivity() {
         mealID = intent.getStringExtra(HomeFragment.MEAL_ID).toString()
         mealName = intent.getStringExtra(HomeFragment.MEAL_NAME).toString()
         mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB).toString()
+        mealStatus = intent.getStringExtra(HomeFragment.MEAL_STATUS).toString()
         mealIndex = intent.getIntExtra(HomeFragment.MEAL_INDEX,0)
     }
 

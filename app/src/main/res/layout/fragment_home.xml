@@ -28,10 +28,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-black"
-            android:text="Home"
+            android:text="Witaj!"
             android:textColor="@color/accent"
             android:textSize="@dimen/_30ssp"
             android:layout_weight="1"
@@ -39,12 +39,12 @@
 
         <TextView
             android:id="@+id/user_name"
-            android:layout_width="@dimen/_50sdp"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_40sdp"
             android:text="Login"
             android:textColor="@color/accent"
             android:layout_gravity="left"
-            android:gravity="left|center"
+            android:gravity="center"
             />
 
     </LinearLayout>

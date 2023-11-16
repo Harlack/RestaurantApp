@@ -51,6 +51,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.annotation:annotation:1.7.0")
     implementation("androidx.privacysandbox.tools:tools-core:1.0.0-alpha06")
+    implementation("androidx.preference:preference:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -82,7 +83,5 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.40")
     implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     implementation ("androidx.fragment:fragment-ktx:1.4.0")
-
-    
 
 }
