@@ -12,16 +12,21 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.restaurantapp.R
 import com.example.restaurantapp.databinding.FragmentCartBinding
 import com.example.restaurantapp.databinding.FragmentSettingsBinding
+import com.example.restaurantapp.retrofit.RetrofitInstance
+import com.example.restaurantapp.user.Data
 import com.example.restaurantapp.user.LoginActivity
 import com.example.restaurantapp.user.LoginData
+import com.example.restaurantapp.viewModel.UserViewModel
 
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
-
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var userData: Data
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        userViewModel = UserViewModel()
+        userData = Data()
     }
 
     override fun onCreateView(
@@ -34,13 +39,20 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val user = activity?.intent?.getSerializableExtra("user") as? LoginData
+        val user = activity?.intent?.getSerializableExtra("user") as LoginData?
         if (user != null) {
-            setUserData(user)
+            userViewModel.getUserData(user)
         }
         setButtons()
+        observerUserData()
 
+    }
 
+    private fun observerUserData() {
+        userViewModel.observerUserData().observe(viewLifecycleOwner) { t ->
+            userData = t
+            setUserName(t)
+        }
     }
 
     private fun setButtons() {
@@ -57,7 +69,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun setUserData(loginData: LoginData) {
+    private fun setUserName(loginData: Data) {
         if (loginData.email=="guest") {
             binding.loginLayout.visibility = View.VISIBLE
         }
@@ -67,6 +79,10 @@ class SettingsFragment : Fragment() {
             binding.loginLayout.visibility = View.GONE
         }
     }
+    private fun deleteUser(user : Data){
+
+    }
+
 
 
 }
