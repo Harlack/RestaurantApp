@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.example.restaurantapp.databinding.ActivityMealBinding
 import com.example.restaurantapp.fragment.HomeFragment
 import com.example.restaurantapp.meals.Meal
+import com.example.restaurantapp.viewModel.CartViewModel
 import com.example.restaurantapp.viewModel.MealViewModel
+import kotlin.math.log
 import kotlin.properties.Delegates
 
 class MealActivity : AppCompatActivity() {
@@ -20,19 +23,25 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealID: String
     private lateinit var mealName: String
     private lateinit var mealThumb: String
+    private lateinit var mealStatus: String
     private var mealIndex: Int = 0
     private lateinit var mealMvvm: MealViewModel
+    private lateinit var cartMvvm: CartViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal)
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
         mealMvvm = ViewModelProviders.of(this)[MealViewModel::class.java]
+        cartMvvm = ViewModelProviders.of(this)[CartViewModel::class.java]
 
         getMealInformation()
         setMealInformation()
+
         mealMvvm.getMealDetail(mealIndex)
         loadingBar()
         observerMealDetailsLiveData()
@@ -47,12 +56,9 @@ class MealActivity : AppCompatActivity() {
                 binding.cashDetail.text = "Price : ${value!!.productPrice} zł"
                 binding.descriptionDetail.text = "Description: ${value!!.productCategory}"
                 binding.addToCardButton.setOnClickListener {
-                    getSharedPreferences("Shopping_cart", Context.MODE_PRIVATE).edit()
-                        .apply(){
-                            putString("meal_id","${value!!._id}")
-                            putString("meal_name","${value!!.productName}")
-                            putString("cash_amount","${value!!.productPrice}")
-                        }.apply()
+                    cartMvvm.addToCart(value)
+                    Toast.makeText(applicationContext,"Added to cart",Toast.LENGTH_SHORT).show()
+                    finish()
                 }
             }
 
@@ -73,6 +79,7 @@ class MealActivity : AppCompatActivity() {
         mealID = intent.getStringExtra(HomeFragment.MEAL_ID).toString()
         mealName = intent.getStringExtra(HomeFragment.MEAL_NAME).toString()
         mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB).toString()
+        mealStatus = intent.getStringExtra(HomeFragment.MEAL_STATUS).toString()
         mealIndex = intent.getIntExtra(HomeFragment.MEAL_INDEX,0)
     }
 

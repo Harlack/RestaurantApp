@@ -4,12 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/restaurantmap"
     tools:context=".fragment.ReservationFragment">
 
 
     <!-- Przyciski do rezerwacji stolików na mapie -->
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/restaurantmap"
+        />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,7 +22,7 @@
         android:layout_marginEnd="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_250sdp">
 
-        <Button
+        <TextView
             android:id="@+id/stolik1"
             android:layout_width="35dp"
             android:layout_height="35dp"

@@ -1,12 +1,15 @@
 package com.example.restaurantapp.user
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.example.restaurantapp.R
 import com.example.restaurantapp.retrofit.RetrofitInstance
 import com.google.android.material.button.MaterialButton
@@ -25,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
         val firstName : EditText = findViewById(R.id.imieEdit)
         val lastName : EditText = findViewById(R.id.nazwiskoEdit)
         val phone : EditText = findViewById(R.id.telefonEdit)
-
+        val cardView : LinearLayout = findViewById(R.id.cardView)
 
         var user = RegisterData()
 
@@ -37,6 +40,9 @@ class RegisterActivity : AppCompatActivity() {
             user.phoneNumber = phone.text.toString()
             user.role = "user"
             registerUser(user)
+        }
+        cardView.setOnClickListener {
+            finish()
         }
 
 

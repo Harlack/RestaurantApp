@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
         const val MEAL_NAME = "MEAL_NAME"
         const val MEAL_THUMB = "MEAL_THUMB"
         const val MEAL_INDEX = "MEAL_INDEX"
+        const val MEAL_STATUS = "MEAL_STATUS"
 
     }
 
@@ -54,7 +55,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUsername()
-        Log.d("Home1",mealsList.toString())
         binding.recyclerview.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         binding.recyclerview.setHasFixedSize(true)
         homeViewModel.getRandomMeal()
@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
         })
-        Log.d("Home2",mealsList.toString())
+
     }
 
     private fun observerList() {
@@ -93,6 +93,7 @@ class HomeFragment : Fragment() {
             intent.putExtra(MEAL_ID,myMeal._id)
             intent.putExtra(MEAL_NAME,myMeal.productName)
             intent.putExtra(MEAL_THUMB,myMeal.productImage)
+            intent.putExtra(MEAL_STATUS,myMeal.productStatus)
             intent.putExtra(MEAL_INDEX,myMeal.__v)
             startActivity(intent)
         }

@@ -28,10 +28,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-black"
-            android:text="Home"
+            android:text="Witaj!"
             android:textColor="@color/accent"
             android:textSize="@dimen/_30ssp"
             android:layout_weight="1"
@@ -39,11 +39,11 @@
 
         <TextView
             android:id="@+id/user_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_40sdp"
             android:text="Login"
             android:textColor="@color/accent"
-            android:layout_weight="1"
+            android:layout_gravity="left"
             android:gravity="center"
             />
 
@@ -53,7 +53,7 @@
         android:id="@+id/header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Something here"
+        android:text="Polecamy dla Ciebie"
         android:textSize="@dimen/_25sdp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -91,7 +91,7 @@
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Another one"
+        android:text="Lista produktów"
         android:textSize="@dimen/_25sdp"
         android:textColor="@color/black"
         android:textStyle="bold"

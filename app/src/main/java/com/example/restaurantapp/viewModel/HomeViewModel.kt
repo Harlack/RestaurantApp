@@ -21,6 +21,9 @@ class HomeViewModel():ViewModel(){
                 if (response.body()!=null){
                     val mealsResponse = response.body()
                     val mealList = mealsResponse?.data
+                    for (meal in mealList!!){
+                        meal.__v = mealList.indexOf(meal)
+                    }
                     var randomMealGenerated = mealList?.random()!!
                     randomMealGenerated.__v = mealList.indexOf(randomMealGenerated)
                     Log.d("Generated","Meals name: ${randomMealGenerated.productName}" +

@@ -18,7 +18,9 @@ class MealViewModel():ViewModel() {
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<Meals> {
             override fun onResponse(call: Call<Meals>, response: Response<Meals>) {
                 if(response.body()!=null){
+                    Log.d("index",index.toString())
                     mealDetailsLiveData.value = response.body()!!.data[index]
+                    Log.d("OnResponse",mealDetailsLiveData.value?.productName.toString())
                 }
                 else{
                     return
