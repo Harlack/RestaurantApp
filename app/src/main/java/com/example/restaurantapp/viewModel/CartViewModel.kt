@@ -56,7 +56,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
                 return
             }
         }
-        val newShopMeal = ShopMeal(meal.productName, meal.productImage, meal.productPrice)
+        val newShopMeal = ShopMeal(meal.productName, meal.productImage, meal.productPrice, meal.productStatus, meal.productCategory)
         currentList.add(newShopMeal)
         _cartMealList.value = currentList
         saveCart(currentList)

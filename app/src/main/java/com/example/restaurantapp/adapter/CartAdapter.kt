@@ -6,6 +6,7 @@
     import android.widget.ImageButton
     import android.widget.ImageView
     import android.widget.TextView
+    import androidx.core.content.ContextCompat
     import androidx.recyclerview.widget.RecyclerView
     import com.bumptech.glide.Glide
     import com.example.restaurantapp.R
@@ -39,8 +40,17 @@
             holder.name.text = item.productName
             holder.price.text = "${item.productPrice} zł"
             holder.quantity.text = item.quantity.toString()
+            holder.status.text = item.productStatus
+            holder.category.text = item.productCategory
             Glide.with(holder.itemView.context).load(item.productImage).into(holder.image)
 
+            if (item.productStatus == "Dostępny") {
+                holder.status.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
+            } else {
+                holder.status.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+            }
+
+            holder.minusButton.isEnabled = item.quantity != 1
             holder.addButton.setOnClickListener {
                 mListener.onAdd(position)
             }
@@ -65,6 +75,8 @@
             val name: TextView = itemView.findViewById(R.id.mealname)
             val price: TextView = itemView.findViewById(R.id.mealprice)
             val quantity: TextView = itemView.findViewById(R.id.mealquantity)
+            val status: TextView = itemView.findViewById(R.id.mealstatus)
+            val category: TextView = itemView.findViewById(R.id.mealcategory)
             val deleteButton: ImageButton = itemView.findViewById(R.id.delete_button)
             val addButton: ImageButton = itemView.findViewById(R.id.add_button)
             val minusButton: ImageButton = itemView.findViewById(R.id.minus_button)

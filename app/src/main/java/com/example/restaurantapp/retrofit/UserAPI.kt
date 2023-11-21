@@ -21,7 +21,6 @@ interface UserAPI {
     @GET("api/users/{email}")
     fun getUserData(@Path("email") email: String): Call<Data>
 
-
     @DELETE("api/users/{id}")
-    fun delete(@Path("id") @Body id : String) : Call<String>
+    fun delete(@Path("id") id : String) : Call<String>
 }

@@ -1,44 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="20dp"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardElevation="@dimen/_5sdp"
+    app:cardBackgroundColor="@color/transparent"
+    android:clipToPadding="false"
+    app:cardMaxElevation="5dp"
+    app:cardCornerRadius="30dp"
+    app:cardPreventCornerOverlap="true"
+    android:layout_margin="@dimen/_5sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:background="@color/white"
         >
+
         <ImageView
             android:id="@+id/mealimg"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
-            android:src="@drawable/baseline_home_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/baseline_shopping_cart_checkout_24"
             />
+
         <TextView
             android:id="@+id/mealname"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:textSize="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:textAlignment="center"
-            android:layout_weight="4"
+            android:scrollHorizontally="false"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="@id/mealimg"
+            app:layout_constraintStart_toEndOf="@id/mealimg"
+
+            />
+        <TextView
+            android:id="@+id/mealstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@id/mealprice"
+            app:layout_constraintStart_toStartOf="@id/mealprice"
+            app:layout_constraintBottom_toBottomOf="@id/mealimg"
+            />
+        <TextView
+            android:id="@+id/mealcategory"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textStyle="italic"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/mealname"
+            app:layout_constraintStart_toEndOf="@id/mealimg"
             />
         <TextView
             android:id="@+id/mealprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Price"
-            android:textSize="@dimen/_25sdp"
-            android:textAlignment="textEnd"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:textColor="@color/my_black"
+            android:textStyle="italic"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintBottom_toTopOf="@id/mealstatus"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mealcategory"
             />
 
-    </LinearLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/mealdescription"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:text="Description"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/mealimg"
+            app:layout_constraintStart_toEndOf="@id/mealimg"
+            app:layout_constraintTop_toBottomOf="@id/mealcategory" />
 
 
-</androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

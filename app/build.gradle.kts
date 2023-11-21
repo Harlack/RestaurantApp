@@ -35,10 +35,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
     }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
@@ -83,5 +86,6 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.40")
     implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     implementation ("androidx.fragment:fragment-ktx:1.4.0")
+    
 
 }
