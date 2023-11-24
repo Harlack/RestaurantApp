@@ -11,8 +11,7 @@ data class Data(
     var password: String,
     var phoneNumber: String,
     var points: Int,
-    var roles: String,
-    var token : String
+
 ) : Serializable {
-    constructor() : this(0,"","","","","","",0,"","")
+    constructor() : this(0,"","","","","","",0)
 }

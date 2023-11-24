@@ -1,6 +1,7 @@
 package com.example.restaurantapp.fragment
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,28 +10,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.restaurantapp.R
-import com.example.restaurantapp.databinding.FragmentCartBinding
 import com.example.restaurantapp.databinding.FragmentSettingsBinding
-import com.example.restaurantapp.retrofit.RetrofitInstance
-import com.example.restaurantapp.user.Data
 import com.example.restaurantapp.user.LoginActivity
-import com.example.restaurantapp.user.LoginData
+import com.example.restaurantapp.user.UpdatePassword
+import com.example.restaurantapp.user.User
 import com.example.restaurantapp.viewModel.UserViewModel
 
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var userViewModel: UserViewModel
-    private lateinit var userData: Data
+    private lateinit var userData: User
+    private lateinit var user: String
+    private lateinit var password: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userViewModel = UserViewModel()
-        userData = Data()
+        userViewModel = UserViewModel(requireActivity().application)
+        userData = User()
+        user = activity?.getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("user", null).toString()
+        password = activity?.getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("password", null).toString()
+        if (user != "Guest"){
+            userViewModel.getUserData(user!!)
+            Log.d("userData",userData.toString())
+        }else{
+            userData.data.email = "Guest"
+        }
+
     }
 
     override fun onCreateView(
@@ -43,23 +53,14 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val user = activity?.intent?.getSerializableExtra("user") as LoginData?
         binding.settingsList.adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_list_item_1,
             resources.getStringArray(R.array.settings)
         )
-        if (user != null){
-            setUserName(user?.email.toString())
-        }else{
-            setUserName("Guest")
-        }
-        user?.let { userViewModel.getUserData(it) }
         observerUserData()
         setListListener()
         setButton()
-
-
     }
 
     private fun setListListener() {
@@ -75,6 +76,22 @@ class SettingsFragment : Fragment() {
                     dialog.findViewById<TextView>(R.id.back).setOnClickListener {
                         dialog.dismiss()
                     }
+                    dialog.findViewById<TextView>(R.id.changePasswordBtn).setOnClickListener {
+                        val oldPassword = dialog.findViewById<EditText>(R.id.oldPassword).text.toString()
+                        val newPassword = dialog.findViewById<EditText>(R.id.newPassword).text.toString()
+                        val confirmPassword = dialog.findViewById<EditText>(R.id.confirmPassword).text.toString()
+                        val passwords = UpdatePassword(oldPassword,newPassword)
+                        if (oldPassword == password){
+                            if (newPassword == confirmPassword && newPassword.isNotEmpty()){
+                                userViewModel.updatePassword(passwords)
+                                dialog.dismiss()
+                            }else{
+                                Toast.makeText(activity,"Hasła się różnią!",Toast.LENGTH_SHORT).show()
+                            }
+                        }else{
+                            Toast.makeText(activity,"Złe hasło",Toast.LENGTH_SHORT).show()
+                        }
+                    }
                     dialog.show()
                 }
                 1 -> {
@@ -83,7 +100,7 @@ class SettingsFragment : Fragment() {
                     dialog.show()
                 }
                 2 -> {
-                    deleteUser(userData)
+                    //deleteUser(userData)
                     activity?.getSharedPreferences("user", 0)?.edit()?.clear()?.apply()
                     val intent = Intent(activity, LoginActivity::class.java)
                     startActivity(intent)
@@ -102,7 +119,8 @@ class SettingsFragment : Fragment() {
 
     private fun observerUserData() {
         userViewModel.observerUserData().observe(viewLifecycleOwner) { t ->
-            userData = t
+            userData.data = t
+            setUserName(userData.data.email)
         }
     }
 
@@ -127,10 +145,6 @@ class SettingsFragment : Fragment() {
             binding.loggedInLayout.visibility = View.VISIBLE
         }
     }
-    private fun deleteUser(user : Data){
-
-    }
-
 
 
 }

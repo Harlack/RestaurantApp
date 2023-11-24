@@ -8,6 +8,5 @@ class RegisterData : Serializable {
     var phoneNumber: String = ""
     var email: String = ""
     var password: String = ""
-    var role: String = ""
 
 }

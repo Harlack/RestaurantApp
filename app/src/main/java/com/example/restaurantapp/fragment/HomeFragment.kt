@@ -1,5 +1,6 @@
 package com.example.restaurantapp.fragment
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -101,11 +102,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUsername(){
-        val user = activity?.intent?.getSerializableExtra("user") as? LoginData
+        val user = activity?.getSharedPreferences("user", MODE_PRIVATE)?.getString("user", null)
         if (user != null) {
-            binding.userName.text = user.email
-        }else{
-            binding.userName.text = "Guest"
+            binding.userName.text = user
         }
     }
     private fun observerRandom() {

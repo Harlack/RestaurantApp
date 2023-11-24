@@ -22,7 +22,7 @@ object RetrofitInstance {
             .create(MealAPI::class.java)
     }
 
-    fun retrofit() : Retrofit {
+    private fun retrofit() : Retrofit {
 
         val logging = HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);

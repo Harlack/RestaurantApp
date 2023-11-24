@@ -30,7 +30,7 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user"
+            android:text="Ładowanie..."
             android:textSize="@dimen/_30sdp"
             android:textColor="@color/accent"
             app:layout_constraintTop_toBottomOf="@id/text"
