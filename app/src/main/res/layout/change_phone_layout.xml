@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_30sdp"
+    android:layout_marginEnd="@dimen/_30sdp"
+    android:layout_marginBottom="@dimen/_20sdp"
+    android:background="@drawable/layout_bg"
+    android:layout_gravity="center"
+    >
+        <TextView
+            android:id="@+id/changePhoneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zmien_numer_telefonu"
+            android:textSize="@dimen/_25sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            />
+
+        <EditText
+            android:id="@+id/newPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nowy numer telefonu"
+            android:inputType="number"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            />
+
+        <Button
+            android:id="@+id/changePhoneBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zmień numer telefonu"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/my_black"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center"
+            />
+
+</LinearLayout>

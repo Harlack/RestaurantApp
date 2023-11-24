@@ -17,19 +17,11 @@
     <string name="zmien_haslo">Zmień hasło</string>
     <string name="zmien_numer_telefonu">Zmień numer telefonu</string>
     <string name="wyloguj_sie">Wyloguj się</string>
-    <string-array name="category">
-        <item>Beef</item>
-        <item>Chicken</item>
-        <item>Dessert</item>
-        <item>Lamb</item>
-        <item>Miscellaneous</item>
-        <item>Pasta</item>
-        <item>Pork</item>
-        <item>Seafood</item>
-        <item>Side</item>
-        <item>Starter</item>
-        <item>Vegan</item>
-        <item>Vegetarian</item>
+    <string-array name="settings">
+        <item>Zmień hasło</item>
+        <item>Zmień numer telefonu</item>
+        <item>Usuń konto</item>
+        <item>Wyloguj się</item>
     </string-array>
 
 </resources>
