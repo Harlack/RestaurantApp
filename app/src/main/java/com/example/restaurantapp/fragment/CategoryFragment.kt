@@ -65,7 +65,10 @@ class CategoryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.wszystkie.isChecked = true
+        binding.daniaGlowne.isChecked = true
+        filteredValues = mealsList.filter { it.productCategory == "Dania główne" }
+        adapter.updateData(filteredValues)
+
     }
     private fun observerList() {
       categoryViewModel.getFullList().observe(viewLifecycleOwner) { t ->
