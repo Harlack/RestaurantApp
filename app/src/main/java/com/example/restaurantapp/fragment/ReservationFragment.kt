@@ -3,6 +3,7 @@ package com.example.restaurantapp.fragment
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,13 +15,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.restaurantapp.R
 import com.example.restaurantapp.databinding.FragmentReservationBinding
 import com.example.restaurantapp.reservations.Reservation
 import com.example.restaurantapp.reservations.Table
 import com.example.restaurantapp.user.User
 import com.example.restaurantapp.viewModel.ReservationViewModel
-
 
 
 class ReservationFragment : Fragment() {
@@ -148,15 +149,15 @@ class ReservationFragment : Fragment() {
                 val tableTime = dialog.findViewById<TextView>(R.id.timeText)
                 dialog.findViewById<TextView>(R.id.emailText).text = "Email: " + userData.data.email
                 tableNumber.text = "Numer stolika: " + table.tableNumber.toString()
-                tableDate.text = "Data: " + binding.datePicker.year.toString() + "-" + binding.datePicker.month.toString() + "-" + binding.datePicker.dayOfMonth.toString()
-                tableTime.text = "Godzina: " + binding.timePicker.hour.toString() + ":" + binding.timePicker.minute.toString()
+                tableDate.text = "Data: " + binding.datePicker.year + "-" + binding.datePicker.month + "-" + binding.datePicker.dayOfMonth
+                tableTime.text = "Godzina: " + String.format("%02d:%02d", binding.timePicker.hour, binding.timePicker.minute)
                 dialog.findViewById<TextView>(R.id.declineBtn).setOnClickListener {
                     dialog.dismiss()
                 }
                 dialog.findViewById<TextView>(R.id.acceptBtn).setOnClickListener {
                     val reservation = Reservation(
                             dialog.findViewById<EditText>(R.id.commentEdit).text.toString(),
-                            binding.datePicker.year.toString() + "-" + binding.datePicker.month.toString() + "-" + binding.datePicker.dayOfMonth.toString(),
+                            "" + binding.datePicker.year + "-" + binding.datePicker.month + "-" + binding.datePicker.dayOfMonth,
                             userData.data.email,
                             table.tableNumber,
                             binding.timePicker.hour
@@ -168,9 +169,11 @@ class ReservationFragment : Fragment() {
                         }
                     }
                     reservationViewModel.addReservation(reservation)
-                    reservationViewModel.getListOfReservationLD()
+                    reservationViewModel.getListOfReservations()
+                    observerReservationList()
                     Toast.makeText(context, "Rezerwacja została dodana", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
+
                 }
 
                 dialog.show()

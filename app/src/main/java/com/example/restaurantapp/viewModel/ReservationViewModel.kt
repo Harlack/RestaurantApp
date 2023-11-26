@@ -1,7 +1,7 @@
 package com.example.restaurantapp.viewModel
 
 import android.app.Application
-import android.content.Context
+
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,7 @@ import com.example.restaurantapp.reservations.Tables
 import com.example.restaurantapp.retrofit.RetrofitInstance
 import com.example.restaurantapp.user.Data
 import com.example.restaurantapp.user.User
-import com.google.android.material.tabs.TabLayout.Tab
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,7 +107,9 @@ class ReservationViewModel(application: Application) : AndroidViewModel(applicat
             }
 
         })
+
     }
+
 
     fun getListOfReservationLD():MutableLiveData<List<Reservation>>{
         return reservationList
