@@ -64,6 +64,11 @@ class CategoryFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.categoriesGroup.clearCheck()
+        binding.daniaGlowne.performClick()
+    }
     private fun observerList() {
       categoryViewModel.getFullList().observe(viewLifecycleOwner) { t ->
             mealsList = t

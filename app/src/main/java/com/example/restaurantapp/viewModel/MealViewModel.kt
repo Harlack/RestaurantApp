@@ -15,7 +15,7 @@ class MealViewModel():ViewModel() {
     private var mealDetailsLiveData = MutableLiveData<Meal>()
 
     fun getMealDetail(index:Int){
-        RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<Meals> {
+        RetrofitInstance.api.getListOfMeal().enqueue(object : Callback<Meals> {
             override fun onResponse(call: Call<Meals>, response: Response<Meals>) {
                 if(response.body()!=null){
                     Log.d("index",index.toString())

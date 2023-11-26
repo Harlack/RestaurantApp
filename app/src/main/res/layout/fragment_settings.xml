@@ -15,37 +15,49 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/jeste_zalogowany_jako"
-            android:textSize="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jeste_zalogowany_jako"
+                android:textSize="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ładowanie..."
-            android:textSize="@dimen/_30sdp"
-            android:textColor="@color/accent"
-            app:layout_constraintTop_toBottomOf="@id/text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ładowanie..."
+                android:textSize="@dimen/_30sdp"
+                android:textColor="@color/my_black"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+           <TextView
+               android:id="@+id/user_points"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Punkty: 0"
+               android:textSize="@dimen/_20sdp"
+               android:textColor="@color/grey"
+               android:layout_marginTop="@dimen/_20sdp"
+               app:layout_constraintTop_toBottomOf="@id/user_name"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"/>
 
-       <ListView
-           android:id="@+id/settingsList"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_margin="@dimen/_20sdp"
-           app:layout_constraintTop_toBottomOf="@id/user_name"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           />
+            <ListView
+               android:id="@+id/settingsList"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="@dimen/_20sdp"
+               app:layout_constraintTop_toBottomOf="@id/user_points"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 <LinearLayout
@@ -53,7 +65,10 @@
     android:orientation="vertical"
     android:visibility="gone"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_marginBottom="@dimen/_30sdp">
     <TextView
         android:id="@+id/logintext"
         android:layout_width="wrap_content"

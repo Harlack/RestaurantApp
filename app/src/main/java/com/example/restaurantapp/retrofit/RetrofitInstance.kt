@@ -40,5 +40,9 @@ object RetrofitInstance {
         val userService = retrofit().create(UserAPI::class.java);
         return userService;
     }
+    fun getReservationService() : ReservationAPI{
+        val userService = retrofit().create(ReservationAPI::class.java);
+        return userService;
+    }
 
 }

@@ -34,6 +34,7 @@
             android:gravity="end"
             android:text="Total Price: 0.00 zł"
             android:textSize="18sp"
+            android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@id/cartRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -58,9 +59,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Checkout"
+            android:backgroundTint="@color/my_black"
             android:textSize="18sp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@id/totalPriceTextView"
             app:layout_constraintEnd_toEndOf="parent"
             />

@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_40sdp"
         android:layout_marginEnd="@dimen/_50sdp"
-        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
         android:background="@drawable/layout_bg">
         <TextView
             android:id="@+id/loginView"
@@ -23,7 +23,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_20ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,8 +37,12 @@
             android:textColorHint="@color/grey"
             android:layout_marginStart="@dimen/_20ssp"
             android:layout_marginEnd="@dimen/_20ssp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:inputType="textEmailAddress"
+            android:background="@drawable/auth_inputs"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableStart="@drawable/baseline_email"
+            android:drawableTint="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/loginView"
             app:layout_constraintStart_toStartOf="@id/loginView"
 
@@ -53,9 +57,9 @@
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/_20ssp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/loginEdit"
             app:layout_constraintStart_toStartOf="parent"
-
             />
 
         <EditText
@@ -66,8 +70,12 @@
             android:textColorHint="@color/grey"
             android:layout_marginStart="@dimen/_20ssp"
             android:layout_marginEnd="@dimen/_20ssp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:inputType="textPassword"
+            android:drawableTint="@color/grey"
+            android:drawableStart="@drawable/password_lock_solid_svgrepo_com"
+            android:drawablePadding="@dimen/_5sdp"
+            android:background="@drawable/auth_inputs"
             app:layout_constraintTop_toBottomOf="@id/passwordView"
 
             />
@@ -80,6 +88,7 @@
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/_20ssp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/passwordEdit"
             app:layout_constraintStart_toStartOf="parent"
 
@@ -92,7 +101,11 @@
             android:textColorHint="@color/grey"
             android:layout_marginStart="@dimen/_20ssp"
             android:layout_marginEnd="@dimen/_20ssp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/auth_inputs"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableLeft="@drawable/user_pen_alt_1_svgrepo_com"
+            android:drawableTint="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/imieView"
             />
 
@@ -105,6 +118,7 @@
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/_20ssp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/imieEdit"
             app:layout_constraintStart_toStartOf="parent"
             />
@@ -117,7 +131,11 @@
             android:textColorHint="@color/grey"
             android:layout_marginStart="@dimen/_20ssp"
             android:layout_marginEnd="@dimen/_20ssp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/auth_inputs"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableLeft="@drawable/user_pen_alt_1_svgrepo_com"
+            android:drawableTint="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/nazwiskoView"
             app:layout_constraintStart_toStartOf="parent"
             />
@@ -131,6 +149,7 @@
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/_20ssp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/nazwiskoEdit"
             app:layout_constraintStart_toStartOf="parent"
             />
@@ -143,8 +162,12 @@
             android:textColorHint="@color/grey"
             android:layout_marginStart="@dimen/_20ssp"
             android:layout_marginEnd="@dimen/_20ssp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:inputType="number"
+            android:background="@drawable/auth_inputs"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableLeft="@drawable/phone_svgrepo_com"
+            android:drawableTint="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/telView"
             app:layout_constraintStart_toStartOf="parent"
             />
@@ -154,8 +177,9 @@
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_55sdp"
             android:text="Register"
+            android:textSize="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:backgroundTint="@color/accent"
+            android:backgroundTint="@color/my_black"
             app:layout_constraintTop_toBottomOf="@id/telefonEdit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -166,6 +190,7 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@id/RegisterBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
