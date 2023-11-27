@@ -3,6 +3,8 @@ package com.example.restaurantapp.fragment
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.icu.util.LocaleData
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -17,19 +19,29 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.restaurantapp.R
+import com.example.restaurantapp.ReservationActivity
 import com.example.restaurantapp.databinding.FragmentReservationBinding
 import com.example.restaurantapp.reservations.Reservation
 import com.example.restaurantapp.reservations.Table
 import com.example.restaurantapp.user.User
 import com.example.restaurantapp.viewModel.ReservationViewModel
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+import java.util.SimpleTimeZone
+import kotlin.math.log
 
 
 class ReservationFragment : Fragment() {
 
     private lateinit var binding: FragmentReservationBinding
     private lateinit var reservationViewModel: ReservationViewModel
-    private lateinit var listOfReservations: List<Reservation>
     private lateinit var userData: User
+    private lateinit var reservations: List<Reservation>
     private lateinit var user: String
     private lateinit var tables: List<Table>
 
@@ -39,6 +51,7 @@ class ReservationFragment : Fragment() {
         reservationViewModel.getListOfReservations()
         reservationViewModel.getListOfTables()
         userData = User()
+        reservations = listOf()
         tables = listOf()
         user = activity?.getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("user", null).toString()
         if (user != "Guest"){
@@ -47,6 +60,7 @@ class ReservationFragment : Fragment() {
         }else{
             userData.data.email = "Guest"
         }
+
     }
 
 
@@ -61,11 +75,17 @@ class ReservationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.datePicker.minDate = System.currentTimeMillis() - 1000
-        binding.timePicker.hour.rangeUntil(12)
         observerReservationList()
         observerUserData()
-        observerTables()
+
+    }
+
+
+    private fun observerTables(){
+        reservationViewModel.getListOfTablesLD().observe(viewLifecycleOwner) { t ->
+            tables = t.toList()
+            Log.d("TableList",tables.toString())
+        }
     }
     private fun observerUserData() {
         reservationViewModel.getUserDataLD().observe(viewLifecycleOwner) { t ->
@@ -73,22 +93,17 @@ class ReservationFragment : Fragment() {
             Log.d("UserData",t.toString())
         }
     }
-
-
     private fun observerReservationList() {
         reservationViewModel.getListOfReservationLD().observe(viewLifecycleOwner) { t ->
-            listOfReservations = t.toList()
-            Log.d("ReservationList",listOfReservations.toString())
+            reservations = t.toList()
+            observerTables()
+            addTables()
+            Log.d("ReservationList",reservations.toString())
+
         }
     }
 
-    private fun observerTables(){
-        reservationViewModel.getListOfTablesLD().observe(viewLifecycleOwner) { t ->
-            tables = t.toList()
-            addTables()
-            Log.d("TableList",tables.toString())
-        }
-    }
+
 
     private fun convertCoordinatesToDP(x: Float, y: Float): Pair<Float, Float> {
         val density = resources.displayMetrics.density
@@ -111,11 +126,6 @@ class ReservationFragment : Fragment() {
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
             )
-            if (table.tableStatus == "Wolny") {
-                tableButton.setBackgroundColor(resources.getColor(R.color.green,null))
-            } else {
-                tableButton.setBackgroundColor(resources.getColor(R.color.red,null))
-            }
             if (table.tableNumber < 10) {
                 params.width = 70
             } else {
@@ -129,6 +139,21 @@ class ReservationFragment : Fragment() {
             params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
             params.leftMargin = xInDP.toInt()
             params.topMargin = yInDP.toInt() - 50
+
+            if ( table.tableStatus == "Wolny") {
+                tableButton.setBackgroundColor(resources.getColor(R.color.green, null))
+            } else {
+                tableButton.setBackgroundColor(resources.getColor(R.color.red, null))
+            }
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val current = LocalDateTime.now().format(formatter)
+            for(reservation in reservations){
+                Log.d("reservation",current)
+                if (reservation.reservationTable == table.tableNumber && reservation.reservationDate == current ){
+                    Log.d("reservation","true")
+                    tableButton.setBackgroundColor(resources.getColor(R.color.red, null))
+                }
+            }
             binding.tablesLayout.addView(tableButton, params)
 
             tableButton.setOnClickListener {
@@ -136,47 +161,10 @@ class ReservationFragment : Fragment() {
                     dialogForEmail()
                     return@setOnClickListener
                 }
-
-                val dialog = Dialog(requireContext())
-                dialog.window?.setLayout(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-
-                dialog.setContentView(R.layout.reservation_layout)
-                val tableNumber = dialog.findViewById<TextView>(R.id.tableText)
-                val tableDate = dialog.findViewById<TextView>(R.id.dateText)
-                val tableTime = dialog.findViewById<TextView>(R.id.timeText)
-                dialog.findViewById<TextView>(R.id.emailText).text = "Email: " + userData.data.email
-                tableNumber.text = "Numer stolika: " + table.tableNumber.toString()
-                tableDate.text = "Data: " + binding.datePicker.year + "-" + binding.datePicker.month + "-" + binding.datePicker.dayOfMonth
-                tableTime.text = "Godzina: " + String.format("%02d:%02d", binding.timePicker.hour, binding.timePicker.minute)
-                dialog.findViewById<TextView>(R.id.declineBtn).setOnClickListener {
-                    dialog.dismiss()
-                }
-                dialog.findViewById<TextView>(R.id.acceptBtn).setOnClickListener {
-                    val reservation = Reservation(
-                            dialog.findViewById<EditText>(R.id.commentEdit).text.toString(),
-                            "" + binding.datePicker.year + "-" + binding.datePicker.month + "-" + binding.datePicker.dayOfMonth,
-                            userData.data.email,
-                            table.tableNumber,
-                            binding.timePicker.hour
-                    )
-                    for (r in listOfReservations) {
-                        if (r.reservationTable == reservation.reservationTable && r.reservationDate == reservation.reservationDate && r.reservationTime == reservation.reservationTime) {
-                            Toast.makeText(context, "Stolik jest zajęty", Toast.LENGTH_SHORT).show()
-                            return@setOnClickListener
-                        }
-                    }
-                    reservationViewModel.addReservation(reservation)
-                    reservationViewModel.getListOfReservations()
-                    observerReservationList()
-                    Toast.makeText(context, "Rezerwacja została dodana", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-
-                }
-
-                dialog.show()
+                val intent = Intent(context, ReservationActivity::class.java)
+                intent.putExtra("tableNumber", table.tableNumber)
+                intent.putExtra("user", userData.data.email)
+                startActivity(intent)
             }
 
         }
@@ -186,13 +174,13 @@ class ReservationFragment : Fragment() {
 
     private fun dialogForEmail() {
         val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle("Podaj email")
+        alertDialog.setTitle("Dodaj email, aby móc dokonać rezerwacji")
         val input = EditText(requireContext())
+        input.hint = "Email"
         val lp = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-
         input.layoutParams = lp
         alertDialog.setView(input)
         alertDialog.setPositiveButton("OK") { _, _ ->

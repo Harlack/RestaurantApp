@@ -13,7 +13,7 @@
             android:id="@+id/reservationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reservation"
+            android:text="Rezerwacje"
             android:textSize="@dimen/_30sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,43 +22,12 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             />
-    <LinearLayout
-        android:id="@+id/timelayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/reservationText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_20sdp"
-        >
-            <DatePicker
-                android:id="@+id/datePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:datePickerMode="spinner"
-                android:calendarViewShown="false"
-                android:spinnersShown="true"
-                android:layout_marginTop="@dimen/_20sdp"
-                app:layout_constraintTop_toBottomOf="@id/reservationText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:timePickerMode="spinner"
-                android:layout_marginTop="@dimen/_20sdp"
-                app:layout_constraintTop_toBottomOf="@id/datePicker"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-    </LinearLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="394dp"
             android:layout_height="240dp"
             android:id="@+id/tablesLayout"
-            app:layout_constraintTop_toBottomOf="@id/timelayout"
+            app:layout_constraintTop_toBottomOf="@id/reservationText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             >
@@ -74,10 +43,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
 
 </FrameLayout>

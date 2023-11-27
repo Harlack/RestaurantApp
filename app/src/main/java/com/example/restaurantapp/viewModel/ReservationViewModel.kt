@@ -1,10 +1,13 @@
 package com.example.restaurantapp.viewModel
 
 import android.app.Application
+import android.os.Build
 
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.restaurantapp.reservations.Reservation
 import com.example.restaurantapp.reservations.ReservationResponse
 import com.example.restaurantapp.reservations.Table
@@ -12,10 +15,17 @@ import com.example.restaurantapp.reservations.Tables
 import com.example.restaurantapp.retrofit.RetrofitInstance
 import com.example.restaurantapp.user.Data
 import com.example.restaurantapp.user.User
+import kotlinx.coroutines.launch
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
 
 class ReservationViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -87,6 +97,8 @@ class ReservationViewModel(application: Application) : AndroidViewModel(applicat
 
         })
     }
+
+
 
     fun addReservation(reservation: Reservation) {
         val api = RetrofitInstance
