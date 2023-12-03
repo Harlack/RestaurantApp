@@ -1,21 +1,19 @@
 package com.example.restaurantapp.fragment
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 
 import com.bumptech.glide.Glide
-import com.example.restaurantapp.MealActivity
+import com.example.restaurantapp.activity.MealActivity
 import com.example.restaurantapp.adapter.MealsAdapter
 import com.example.restaurantapp.databinding.FragmentHomeBinding
 import com.example.restaurantapp.meals.Meal
-import com.example.restaurantapp.user.LoginData
 import com.example.restaurantapp.viewModel.HomeViewModel
 
 
@@ -90,7 +88,7 @@ class HomeFragment : Fragment() {
 
     private fun onRandomMealClick() {
         binding.mealShowCard.setOnClickListener{
-            val intent = Intent(activity,MealActivity::class.java)
+            val intent = Intent(activity, MealActivity::class.java)
             intent.putExtra(MEAL_ID,myMeal._id)
             intent.putExtra(MEAL_NAME,myMeal.productName)
             intent.putExtra(MEAL_THUMB,myMeal.productImage)
@@ -101,11 +99,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUsername(){
-        val user = activity?.intent?.getSerializableExtra("user") as? LoginData
+        val user = activity?.getSharedPreferences("user", MODE_PRIVATE)?.getString("user", null)
         if (user != null) {
-            binding.userName.text = user.email
-        }else{
-            binding.userName.text = "Guest"
+            binding.userName.text = user
         }
     }
     private fun observerRandom() {

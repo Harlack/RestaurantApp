@@ -14,8 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -32,21 +30,21 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-black"
             android:text="Witaj!"
-            android:textColor="@color/accent"
+            android:textColor="@color/my_black"
             android:textSize="@dimen/_30ssp"
+            android:layout_gravity="top"
             android:layout_weight="1"
             />
-
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:text="Login"
-            android:textColor="@color/accent"
-            android:layout_gravity="left"
-            android:gravity="center"
-            />
-
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="match_parent"
+                android:text="Login"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/my_black"
+                android:gravity="right|center"
+                android:layout_weight="1"
+                />
     </LinearLayout>
 
     <TextView
@@ -57,7 +55,7 @@
         android:textSize="@dimen/_25sdp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_15sdp"
         app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintStart_toStartOf="@id/header"/>

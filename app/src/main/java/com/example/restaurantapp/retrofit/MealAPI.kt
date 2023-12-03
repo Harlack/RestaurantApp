@@ -9,6 +9,6 @@ import retrofit2.http.Query
 interface MealAPI {
 
     @GET("products")
-    fun getRandomMeal():Call<Meals>
+    fun getListOfMeal():Call<Meals>
 
 }

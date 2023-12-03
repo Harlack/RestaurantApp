@@ -22,12 +22,12 @@ object RetrofitInstance {
             .create(MealAPI::class.java)
     }
 
-    fun retrofit() : Retrofit {
+    private fun retrofit() : Retrofit {
 
         val logging = HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val httpClient = OkHttpClient.Builder().addInterceptor(logging).build();
+        val httpClient = OkHttpClient.Builder().addInterceptor(logging).build()
 
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -37,8 +37,12 @@ object RetrofitInstance {
         return retrofit;
     }
     fun getService() : UserAPI{
-        val userService = retrofit().create(UserAPI::class.java);
-        return userService;
+        val userService = retrofit().create(UserAPI::class.java)
+        return userService
+    }
+    fun getReservationService() : ReservationAPI{
+        val reservationService = retrofit().create(ReservationAPI::class.java)
+        return reservationService
     }
 
 }

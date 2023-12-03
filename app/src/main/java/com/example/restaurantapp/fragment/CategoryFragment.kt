@@ -2,23 +2,17 @@ package com.example.restaurantapp.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.example.restaurantapp.MealActivity
+import com.example.restaurantapp.activity.MealActivity
 import com.example.restaurantapp.R
 import com.example.restaurantapp.adapter.CategoryAdapter
-import com.example.restaurantapp.adapter.MealsAdapter
-import com.example.restaurantapp.databinding.FragmentCartBinding
 import com.example.restaurantapp.databinding.FragmentCategoryBinding
 import com.example.restaurantapp.meals.Meal
 import com.example.restaurantapp.viewModel.CategoryViewModel
-import com.example.restaurantapp.viewModel.HomeViewModel
 
 class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
@@ -61,14 +55,13 @@ class CategoryFragment : Fragment() {
                 startActivity(intent)
             }
         })
+
     }
 
     override fun onResume() {
         super.onResume()
-        binding.daniaGlowne.isChecked = true
-        filteredValues = mealsList.filter { it.productCategory == "Dania główne" }
-        adapter.updateData(filteredValues)
-
+        binding.categoriesGroup.clearCheck()
+        binding.daniaGlowne.performClick()
     }
     private fun observerList() {
       categoryViewModel.getFullList().observe(viewLifecycleOwner) { t ->

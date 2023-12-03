@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MealActivity">
+    tools:context=".activity.MealActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_200sdp"
-
         android:backgroundTint="@color/my_black">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/white"
+            app:contentScrim="@color/my_black"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:expandedTitleTextColor="@color/my_black"
             app:title="Meal name">
 
             <ImageView
@@ -36,17 +36,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_like_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_favorite_border_24"
-        android:backgroundTint="@color/accent"
-        app:tint="@color/white"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|end"
-        android:layout_marginEnd="@dimen/_10sdp"
-        />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,6 +89,19 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:textStyle="bold"
             android:textColor="@color/my_black"
+            android:fontFamily="sans-serif-black"
+            />
+        <TextView
+            android:id="@+id/statusDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            app:layout_constraintTop_toBottomOf="@id/LinearDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textStyle="bold"
+            android:textColor="@color/green"
             android:fontFamily="sans-serif-black"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

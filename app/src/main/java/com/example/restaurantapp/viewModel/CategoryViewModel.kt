@@ -14,7 +14,7 @@ class CategoryViewModel : ViewModel() {
     private var fullList = MutableLiveData<List<Meal>>()
 
     fun loadMeals(){
-        RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<Meals> {
+        RetrofitInstance.api.getListOfMeal().enqueue(object : Callback<Meals> {
             override fun onResponse(call: Call<Meals>, response: Response<Meals>) {
                 if (response.body()!=null){
                     val mealsResponse = response.body()

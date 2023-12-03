@@ -19,7 +19,7 @@ import kotlin.math.log
 
 
 class CartViewModel(application: Application) : AndroidViewModel(application) {
-    private val sharedPreferences = application.getSharedPreferences("pref", Context.MODE_PRIVATE)
+    private val sharedPreferences = application.getSharedPreferences("cart", Context.MODE_PRIVATE)
     private val userPreferences = application.getSharedPreferences("user", Context.MODE_PRIVATE)
     private var userEmail = userPreferences.getString("user", null)
     private val _cartMealList = MutableLiveData<ArrayList<ShopMeal>>()

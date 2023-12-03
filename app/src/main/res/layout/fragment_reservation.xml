@@ -3,51 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:tag="reservations"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ReservationFragment">
 
-
-    <!-- Przyciski do rezerwacji stolików na mapie -->
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/restaurantmap"
-        />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginBottom="@dimen/_140sdp"
-        android:layout_marginEnd="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_250sdp">
-
+        android:layout_height="match_parent">
         <TextView
-            android:id="@+id/stolik1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="1"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/reservationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rezerwacje"
+            android:textSize="@dimen/_30sdp"
             app:layout_constraintTop_toTopOf="parent"
-            />
-
-
-        <Button
-            android:id="@+id/stolik2"
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            android:text="2"
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:layout_marginTop="55dp"
-            app:layout_constraintStart_toStartOf="@id/stolik1"
-            app:layout_constraintTop_toBottomOf="@id/stolik1"
+            android:textStyle="bold"
             />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="394dp"
+            android:layout_height="240dp"
+            android:id="@+id/tablesLayout"
+            app:layout_constraintTop_toBottomOf="@id/reservationText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+            <ImageView
+                android:layout_width="394dp"
+                android:layout_height="290dp"
+                android:src="@drawable/map"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

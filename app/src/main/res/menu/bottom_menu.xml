@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Home"
+    <item android:title="Start"
         android:icon="@drawable/baseline_home_24"
         android:id="@+id/homeFragment"
         />
 
-    <item android:title="Categories"
+    <item android:title="Kategorie"
         android:icon="@drawable/baseline_local_cafe_24"
         android:id="@+id/categoryFragment"
         />
 
-    <item android:title="Cart"
+    <item android:title="Koszyk"
         android:icon="@drawable/baseline_shopping_cart_checkout_24"
         android:id="@+id/cartFragment"
         />
 
-    <item android:title="Reservation"
+    <item android:title="Rezerwacje"
         android:icon="@drawable/baseline_calendar_month_24"
         android:id="@+id/reservationFragment"
         />
-    <item android:title="Settings"
+    <item android:title="Ustawienia"
         android:icon="@drawable/baseline_account_box_24"
         android:id="@+id/settingsFragment"
         />

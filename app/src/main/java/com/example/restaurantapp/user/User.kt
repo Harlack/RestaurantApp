@@ -1,6 +1,6 @@
 package com.example.restaurantapp.user
 
 data class User(
-    val `data`: List<Data>,
-    val message: String
-)
+    var data: Data,
+    var message: String
+) {constructor():this(Data(),"")}
