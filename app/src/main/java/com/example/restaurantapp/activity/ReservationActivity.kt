@@ -1,23 +1,15 @@
-package com.example.restaurantapp
+package com.example.restaurantapp.activity
 
-import android.app.Dialog
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.restaurantapp.R
 import com.example.restaurantapp.databinding.ActivityReservationBinding
 import com.example.restaurantapp.reservations.Reservation
-import com.example.restaurantapp.user.User
 import com.example.restaurantapp.viewModel.ReservationViewModel
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.Calendar
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReservationBinding
@@ -67,7 +59,7 @@ class ReservationActivity : AppCompatActivity() {
             reservationViewModel.getListOfReservations()
             observerReservationList()
             finish()
-            Toast.makeText(this, "Rezerwacja została dodana", Toast.LENGTH_SHORT).show()
+
         }
     binding.declineBtn.setOnClickListener {
             finish()

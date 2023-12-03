@@ -137,8 +137,8 @@ class SettingsFragment : Fragment() {
                         responseToast()
                         activity?.getSharedPreferences("user", 0)?.edit()?.clear()?.apply()
                         val intent = Intent(activity, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP.and(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
-                        activity?.finish()
                         Toast.makeText(activity,"Użytkownik usunięty",Toast.LENGTH_SHORT).show()
                     }
 
@@ -149,8 +149,8 @@ class SettingsFragment : Fragment() {
                 3 -> {
                     activity?.getSharedPreferences("user", 0)?.edit()?.clear()?.apply()
                     val intent = Intent(activity, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP.and(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
-                    activity?.finish()
                 }
             }
         }

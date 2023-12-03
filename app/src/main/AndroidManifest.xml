@@ -17,16 +17,16 @@
         android:theme="@style/Theme.RestaurantApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ReservationActivity"
+            android:name=".activity.ReservationActivity"
             android:exported="false" />
         <activity
             android:name=".user.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MealActivity"
+            android:name=".activity.MealActivity"
             android:exported="false" />
         <activity
             android:name=".user.LoginActivity"

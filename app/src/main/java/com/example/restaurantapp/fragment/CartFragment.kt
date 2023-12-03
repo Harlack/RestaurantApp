@@ -86,11 +86,11 @@ class CartFragment : Fragment() {
 
     private fun setTotalPrice() {
         if (cartMealList.isEmpty()) {
-            binding.totalPriceTextView.text = "Total price: 0.00 zł"
+            binding.totalPriceTextView.text = "Łączna cena: 0.00 zł"
             return
         }
         var suma = cartMealList.sumOf { parsePrice(it.productPrice) * it.quantity.toDouble() }
-        binding.totalPriceTextView.text = "Total price: ${String.format("%.2f", suma)} zł"
+        binding.totalPriceTextView.text = "Łączna cena: ${String.format("%.2f", suma)} zł"
     }
 
     private fun parsePrice(price: String): Double {

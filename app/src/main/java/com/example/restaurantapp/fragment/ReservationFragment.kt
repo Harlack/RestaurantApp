@@ -1,11 +1,8 @@
 package com.example.restaurantapp.fragment
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.icu.util.LocaleData
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,27 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.example.restaurantapp.R
-import com.example.restaurantapp.ReservationActivity
+import com.example.restaurantapp.activity.ReservationActivity
 import com.example.restaurantapp.databinding.FragmentReservationBinding
 import com.example.restaurantapp.reservations.Reservation
 import com.example.restaurantapp.reservations.Table
 import com.example.restaurantapp.user.User
 import com.example.restaurantapp.viewModel.ReservationViewModel
-import okhttp3.internal.notify
-import okhttp3.internal.notifyAll
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
-import java.util.SimpleTimeZone
-import kotlin.math.log
 
 
 class ReservationFragment : Fragment() {
@@ -154,6 +142,7 @@ class ReservationFragment : Fragment() {
                     tableButton.setBackgroundColor(resources.getColor(R.color.red, null))
                 }
             }
+
             binding.tablesLayout.addView(tableButton, params)
 
             tableButton.setOnClickListener {
@@ -164,7 +153,9 @@ class ReservationFragment : Fragment() {
                 val intent = Intent(context, ReservationActivity::class.java)
                 intent.putExtra("tableNumber", table.tableNumber)
                 intent.putExtra("user", userData.data.email)
+                
                 startActivity(intent)
+
             }
 
         }

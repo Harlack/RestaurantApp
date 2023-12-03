@@ -12,8 +12,6 @@ import com.example.restaurantapp.R
 import com.example.restaurantapp.meals.Meal
 
 class CategoryAdapter(private var categoryList: List<Meal>) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
-
-
     private lateinit var mListener: Listeners
 
     interface Listeners {

@@ -1,4 +1,4 @@
-package com.example.restaurantapp
+package com.example.restaurantapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.restaurantapp.R
 import com.example.restaurantapp.databinding.ActivityMealBinding
 import com.example.restaurantapp.fragment.HomeFragment
 import com.example.restaurantapp.meals.Meal
@@ -55,7 +56,9 @@ class MealActivity : AppCompatActivity() {
                 binding.descriptionDetail.text = "Opis: ${value.productCategory}"
                 binding.statusDetail.text = value.productStatus
                 if (value.productStatus == "Niedostępny"){
-                    binding.statusDetail.setTextColor(ContextCompat.getColor(applicationContext,R.color.red))
+                    binding.statusDetail.setTextColor(ContextCompat.getColor(applicationContext,
+                        R.color.red
+                    ))
                     binding.addToCardButton.visibility = View.INVISIBLE
                 }
                 binding.addToCardButton.setOnClickListener {
@@ -73,8 +76,8 @@ class MealActivity : AppCompatActivity() {
             .load(mealThumb)
             .into(binding.imgMealDetail)
         binding.collapsing.title = mealName
-        binding.collapsing.setCollapsedTitleTextColor(ContextCompat.getColor(this,R.color.white))
-        binding.collapsing.setExpandedTitleColor(ContextCompat.getColor(this,R.color.white))
+        binding.collapsing.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.white))
+        binding.collapsing.setExpandedTitleColor(ContextCompat.getColor(this, R.color.white))
     }
 
     private fun getMealInformation() {
