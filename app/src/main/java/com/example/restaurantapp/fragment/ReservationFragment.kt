@@ -44,7 +44,6 @@ class ReservationFragment : Fragment() {
         user = activity?.getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("user", null).toString()
         if (user != "Guest"){
             reservationViewModel.getUserData(user)
-            Log.d("userData",userData.toString())
         }else{
             userData.data.email = "Guest"
         }
@@ -55,7 +54,7 @@ class ReservationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentReservationBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -65,6 +64,13 @@ class ReservationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observerReservationList()
         observerUserData()
+        binding.refreshButton.setOnClickListener {
+            reservationViewModel.getListOfReservations()
+            reservationViewModel.getListOfTables()
+            observerReservationList()
+            observerUserData()
+            updateTables()
+        }
 
     }
 
@@ -72,22 +78,20 @@ class ReservationFragment : Fragment() {
     private fun observerTables(){
         reservationViewModel.getListOfTablesLD().observe(viewLifecycleOwner) { t ->
             tables = t.toList()
-            Log.d("TableList",tables.toString())
         }
     }
     private fun observerUserData() {
         reservationViewModel.getUserDataLD().observe(viewLifecycleOwner) { t ->
             userData.data = t
-            Log.d("UserData",t.toString())
         }
     }
     private fun observerReservationList() {
         reservationViewModel.getListOfReservationLD().observe(viewLifecycleOwner) { t ->
             reservations = t.toList()
             observerTables()
-            addTables()
-            Log.d("ReservationList",reservations.toString())
-
+            if (binding.tablesLayout.childCount == 0) {
+                addTables()
+            }
         }
     }
 
@@ -109,7 +113,7 @@ class ReservationFragment : Fragment() {
         for (table in tables) {
             val tableButton = Button(requireContext())
             tableButton.text = table.tableNumber.toString()
-            tableButton.id = View.generateViewId()
+            tableButton.id = table.tableNumber
             val params = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
@@ -136,9 +140,7 @@ class ReservationFragment : Fragment() {
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val current = LocalDateTime.now().format(formatter)
             for(reservation in reservations){
-                Log.d("reservation",current)
                 if (reservation.reservationTable == table.tableNumber && reservation.reservationDate == current ){
-                    Log.d("reservation","true")
                     tableButton.setBackgroundColor(resources.getColor(R.color.red, null))
                 }
             }
@@ -158,6 +160,23 @@ class ReservationFragment : Fragment() {
 
             }
 
+        }
+    }
+    private fun updateTables(){
+        for(table in tables){
+            val tableButton = binding.tablesLayout.findViewById<Button>(table.tableNumber)
+            if (table.tableStatus == "Wolny") {
+                tableButton.setBackgroundColor(resources.getColor(R.color.green, null))
+            } else {
+                tableButton.setBackgroundColor(resources.getColor(R.color.red, null))
+            }
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val current = LocalDateTime.now().format(formatter)
+            for(reservation in reservations){
+                if (reservation.reservationTable == table.tableNumber && reservation.reservationDate == current ){
+                    tableButton.setBackgroundColor(resources.getColor(R.color.red, null))
+                }
+            }
         }
     }
 

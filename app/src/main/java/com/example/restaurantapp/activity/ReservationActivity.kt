@@ -25,7 +25,8 @@ class ReservationActivity : AppCompatActivity() {
         reservationViewModel.getListOfReservations()
         observerReservationList()
         val current = LocalDateTime.now()
-        binding.datePicker.updateDate(current.year, current.monthValue, current.dayOfMonth)
+        binding.datePicker.updateDate(current.year, current.monthValue+1, current.dayOfMonth)
+        binding.datePicker.minDate = System.currentTimeMillis() - 1000
         binding.timePicker.hour.rangeUntil(12)
 
 
@@ -33,18 +34,21 @@ class ReservationActivity : AppCompatActivity() {
         val tableNumber = intent.getIntExtra("tableNumber", 0)
         findViewById<TextView>(R.id.emailText).text = "Email: $user"
         binding.tableText.text = "Numer stolika: $tableNumber"
-        binding.dateText.text = "Data: " + binding.datePicker.year + "-" + binding.datePicker.month + "-" + binding.datePicker.dayOfMonth
+        binding.dateText.text = "Data: " + binding.datePicker.year + "-" + String.format("%02d-%02d",binding.datePicker.month+1,binding.datePicker.dayOfMonth)
         binding.timeText.text = "Godzina: " + String.format("%02d:%02d", binding.timePicker.hour, binding.timePicker.minute)
         binding.datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
-            binding.dateText.text = "Data: $year-$monthOfYear-$dayOfMonth"
+            binding.dateText.text = "Data: $year-"+ String.format("%02d-%02d",monthOfYear+1,dayOfMonth)
         }
         binding.timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
             binding.timeText.text = "Godzina: " + String.format("%02d:%02d", hourOfDay, minute)
         }
+        binding.declineBtn.setOnClickListener {
+            finish()
+        }
         binding.acceptBtn.setOnClickListener {
             val reservation = Reservation(
                 binding.commentEdit.text.toString(),
-                "" + binding.datePicker.year + "-" + binding.datePicker.month + "-" + binding.datePicker.dayOfMonth,
+                "" + binding.datePicker.year + "-" + String.format("%02d-%02d",binding.datePicker.month+1,binding.datePicker.dayOfMonth),
                 user!!,
                 tableNumber,
                 binding.timePicker.hour
@@ -60,9 +64,6 @@ class ReservationActivity : AppCompatActivity() {
             observerReservationList()
             finish()
 
-        }
-    binding.declineBtn.setOnClickListener {
-            finish()
         }
 
     }

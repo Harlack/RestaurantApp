@@ -23,25 +23,36 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             />
-
+        <ImageView
+            android:layout_width="394dp"
+            android:layout_height="290dp"
+            android:src="@drawable/map"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="@id/tablesLayout"
+            app:layout_constraintEnd_toEndOf="@id/tablesLayout"
+            app:layout_constraintTop_toTopOf="@id/tablesLayout"
+            app:layout_constraintBottom_toBottomOf="@id/tablesLayout"
+            />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="394dp"
-            android:layout_height="240dp"
+            android:layout_height="290dp"
             android:id="@+id/tablesLayout"
             app:layout_constraintTop_toBottomOf="@id/reservationText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            >
-            <ImageView
-                android:layout_width="394dp"
-                android:layout_height="290dp"
-                android:src="@drawable/map"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            />
 
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Odśwież"
+            android:id="@+id/refreshButton"
+            android:layout_marginTop="@dimen/_30sdp"
+            app:layout_constraintTop_toBottomOf="@id/tablesLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
