@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <TableLayout
+        android:id="@+id/checkoutTable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/table_row_style"
+            >
+            <TextView
+                android:id="@+id/checkoutTableDishName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:text="Nazwa"
+                android:layout_marginStart="1dp"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/checkoutTableDishQuantity"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:text="Ilość"
+                android:layout_column="1"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/checkoutTableDishPrice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:text="Cena"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                />
+        </TableRow>
+
+    </TableLayout>
+</androidx.cardview.widget.CardView>

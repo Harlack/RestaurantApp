@@ -1,5 +1,6 @@
 package com.example.restaurantapp.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.restaurantapp.activity.CheckoutActivity
 import com.example.restaurantapp.adapter.CartAdapter
 import com.example.restaurantapp.databinding.FragmentCartBinding
 import com.example.restaurantapp.meals.ShopMeal
@@ -53,6 +55,10 @@ class CartFragment : Fragment() {
         }
 
         binding.cartRecyclerView.adapter = adapter
+
+        binding.checkoutButton.setOnClickListener {
+            startActivity(Intent(activity, CheckoutActivity::class.java))
+        }
 
         adapter.setOnDeleteListener(object : CartAdapter.Listeners{
             override fun onDelete(position: Int) {

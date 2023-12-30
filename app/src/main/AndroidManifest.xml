@@ -17,6 +17,9 @@
         android:theme="@style/Theme.RestaurantApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ReservationActivity"
             android:exported="false" />
         <activity

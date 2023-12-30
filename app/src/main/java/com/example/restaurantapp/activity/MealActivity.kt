@@ -48,27 +48,28 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun observerMealDetailsLiveData() {
-        mealMvvm.observerMealDetailsLiveData().observe(this,object : Observer<Meal>{
-            override fun onChanged(value: Meal) {
-                onRespondBar()
-                binding.categoryDetail.text = "Kategoria : ${value.productCategory}"
-                binding.cashDetail.text = "Cena : ${value.productPrice} zł"
-                binding.descriptionDetail.text = "Opis: ${value.productCategory}"
-                binding.statusDetail.text = value.productStatus
-                if (value.productStatus == "Niedostępny"){
-                    binding.statusDetail.setTextColor(ContextCompat.getColor(applicationContext,
+        mealMvvm.observerMealDetailsLiveData().observe(this
+        ) { value ->
+            onRespondBar()
+            binding.categoryDetail.text = "Kategoria : ${value.productCategory}"
+            binding.cashDetail.text = "Cena : ${value.productPrice} zł"
+            binding.descriptionDetail.text = "Opis: ${value.productCategory}"
+            binding.statusDetail.text = value.productStatus
+            if (value.productStatus == "Niedostępny") {
+                binding.statusDetail.setTextColor(
+                    ContextCompat.getColor(
+                        applicationContext,
                         R.color.red
-                    ))
-                    binding.addToCardButton.visibility = View.INVISIBLE
-                }
-                binding.addToCardButton.setOnClickListener {
-                    cartMvvm.addToCart(value)
-                    Toast.makeText(applicationContext,"Added to cart",Toast.LENGTH_SHORT).show()
-                    finish()
-                }
+                    )
+                )
+                binding.addToCardButton.visibility = View.INVISIBLE
             }
-
-        })
+            binding.addToCardButton.setOnClickListener {
+                cartMvvm.addToCart(value)
+                Toast.makeText(applicationContext, "Added to cart", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
     }
 
     private fun setMealInformation() {
