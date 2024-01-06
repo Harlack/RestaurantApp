@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Odśwież"
             android:id="@+id/refreshButton"
+            android:background="@drawable/round_button_background"
             android:layout_marginTop="@dimen/_30sdp"
             app:layout_constraintTop_toBottomOf="@id/tablesLayout"
             app:layout_constraintStart_toStartOf="parent"

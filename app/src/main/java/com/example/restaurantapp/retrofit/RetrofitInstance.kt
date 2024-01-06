@@ -1,12 +1,6 @@
 package com.example.restaurantapp.retrofit
 
-import android.util.JsonToken
-import android.util.Log
-import com.google.gson.JsonObject
-import com.intuit.sdp.BuildConfig
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,13 +30,11 @@ object RetrofitInstance {
             .build();
         return retrofit;
     }
-    fun getService() : UserAPI{
-        val userService = retrofit().create(UserAPI::class.java)
-        return userService
+    fun getService(): UserAPI {
+        return retrofit().create(UserAPI::class.java)
     }
-    fun getReservationService() : ReservationAPI{
-        val reservationService = retrofit().create(ReservationAPI::class.java)
-        return reservationService
+    fun getReservationService(): ReservationAPI {
+        return retrofit().create(ReservationAPI::class.java)
     }
 
 }

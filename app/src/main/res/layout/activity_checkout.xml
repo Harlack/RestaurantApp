@@ -80,7 +80,7 @@
         />
 
     <LinearLayout
-        android:id="@+id/c"
+        android:id="@+id/checkoutLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/table_row_style"
@@ -102,4 +102,132 @@
             android:textSize="@dimen/_15sdp"
             />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/chooseTableBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/grey"
+        android:textSize="@dimen/_15sdp"
+        android:text="Stolik"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/paymentMethodText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Płatność:"
+        android:textStyle="bold"
+        android:textColor="@color/my_black"
+        android:textSize="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintTop_toBottomOf="@id/chooseTableBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <RadioGroup
+        android:id="@+id/paymentMethodGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/chooseTableBtn"
+        app:layout_constraintStart_toEndOf="@id/paymentMethodText"
+        >
+
+        <RadioButton
+            android:id="@+id/onlinePayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Płatność online" />
+
+        <RadioButton
+            android:id="@+id/cashPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Płatność przy kasie" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/checkoutEmailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_11sdp"
+        android:layout_marginEnd="@dimen/_11sdp"
+        app:layout_constraintTop_toBottomOf="@id/paymentMethodGroup"
+        >
+        <TextView
+            android:id="@+id/checkoutEmailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textStyle="bold"
+            android:textColor="@color/my_black"
+            android:textSize="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_gravity="center"
+            />
+        <EditText
+            android:id="@+id/checkoutEmailEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
+            android:hint="Email"
+            android:background="@drawable/layout_inputs"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/my_black"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/checkoutCommentsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uwagi do zamówienia:"
+        android:textStyle="bold"
+        android:textColor="@color/my_black"
+        android:textSize="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/checkoutEmailLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <EditText
+        android:id="@+id/checkoutCommentsEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:hint="Uwagi"
+        android:background="@drawable/layout_inputs"
+        android:textSize="@dimen/_15sdp"
+        android:textColor="@color/my_black"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/checkoutCommentsText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <Button
+        android:id="@+id/orderBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zamów"
+        android:textSize="@dimen/_15sdp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/accent"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/checkoutCommentsEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

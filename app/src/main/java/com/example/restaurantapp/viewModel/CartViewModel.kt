@@ -68,5 +68,10 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         sharedPreferences.edit().putString("$userEmail", json).apply()
     }
 
+    fun clearCart() {
+        val gson = Gson()
+        val json = gson.toJson(ArrayList<ShopMeal>())
+        sharedPreferences.edit().putString("$userEmail", json).apply()
+    }
 
 }

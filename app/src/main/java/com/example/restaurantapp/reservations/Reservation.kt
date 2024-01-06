@@ -4,6 +4,6 @@ data class Reservation(
     val reservationComment: String,
     val reservationDate: String,
     val reservationPerson: String,
-    val reservationTable: Int,
+    var reservationTable: Int,
     val reservationTime: Int
 )

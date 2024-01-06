@@ -74,10 +74,10 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0-alpha02")
     implementation ("android.arch.lifecycle:extensions:1.1.1")
 
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha01")
-
+    implementation ("androidx.datastore:datastore-preferences:1.0.0-alpha01")
+    implementation ("com.stripe:stripe-android:20.36.0")
     implementation ("com.google.firebase:firebase-auth:19.3.1")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
