@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
             var intent = Intent(this@LoginActivity, MainActivity::class.java)
             Toast.makeText(this@LoginActivity, "Login as guest", Toast.LENGTH_SHORT).show()
             getSharedPreferences("user", MODE_PRIVATE).edit().putString("user","Guest").apply()
+            getSharedPreferences("user", MODE_PRIVATE).edit().putString("token","" ).apply()
             startActivity(intent)
             finish()
         }

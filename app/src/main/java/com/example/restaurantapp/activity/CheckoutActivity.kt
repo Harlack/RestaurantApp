@@ -3,6 +3,7 @@ package com.example.restaurantapp.activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +14,9 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,11 +25,13 @@ import com.example.restaurantapp.R
 import com.example.restaurantapp.adapter.TableAdapter
 import com.example.restaurantapp.meals.ShopMeal
 import com.example.restaurantapp.order.Order
+import com.example.restaurantapp.order.OrderMeals
 import com.example.restaurantapp.reservations.Reservation
 import com.example.restaurantapp.reservations.ReservationResponse
 import com.example.restaurantapp.reservations.Table
 import com.example.restaurantapp.viewModel.CartViewModel
 import com.example.restaurantapp.viewModel.MealViewModel
+import com.example.restaurantapp.viewModel.PaymentViewModel
 import com.example.restaurantapp.viewModel.ReservationViewModel
 import com.example.restaurantapp.viewModel.UserViewModel
 import com.stripe.android.PaymentConfiguration
@@ -39,7 +44,6 @@ import java.util.Calendar
 class CheckoutActivity : AppCompatActivity() {
     private lateinit var totalPrice : TextView
     private lateinit var emailTextView : TextView
-    private lateinit var emailEditView : EditText
     private lateinit var comment : EditText
     private lateinit var orderButton : Button
     private lateinit var tableRecyclerView : RecyclerView
@@ -48,13 +52,14 @@ class CheckoutActivity : AppCompatActivity() {
     private lateinit var userMealList : ArrayList<ShopMeal>
     private lateinit var cartViewModel : CartViewModel
     private lateinit var reservationViewModel: ReservationViewModel
+    private lateinit var paymentViewModel: PaymentViewModel
     private lateinit var adapter: TableAdapter
     private lateinit var user : String
     private lateinit var tables : List<Table>
     private lateinit var order : Order
     private lateinit var reservations : List<Reservation>
     private lateinit var paymentSheet : PaymentSheet
-    var PUBLISH_KEY = "pk_test_51NUCO4CTvIeCfZ48NcnZga4vVwWBjMV21jqsmPWuBgc9i6CSHUQIfC3hIgjBrdOiu5uMosaLlwmEhQzrWPEAdqYZ00NcG5v8jk"
+    private var PUBLISH_KEY = "pk_test_51NUCO4CTvIeCfZ48NcnZga4vVwWBjMV21jqsmPWuBgc9i6CSHUQIfC3hIgjBrdOiu5uMosaLlwmEhQzrWPEAdqYZ00NcG5v8jk"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +67,6 @@ class CheckoutActivity : AppCompatActivity() {
 
         totalPrice = findViewById(R.id.checkoutTotalPrice)
         emailTextView = findViewById(R.id.checkoutEmailText)
-        emailEditView = findViewById(R.id.checkoutEmailEdit)
         comment = findViewById(R.id.checkoutCommentsEdit)
         orderButton = findViewById(R.id.orderBtn)
         tableRecyclerView = findViewById(R.id.table_recycler_view)
@@ -73,6 +77,7 @@ class CheckoutActivity : AppCompatActivity() {
 
         cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
         reservationViewModel = ViewModelProvider(this)[ReservationViewModel::class.java]
+        paymentViewModel = ViewModelProvider(this)[PaymentViewModel::class.java]
 
         userMealList = ArrayList()
         reservations = listOf()
@@ -80,7 +85,6 @@ class CheckoutActivity : AppCompatActivity() {
 
         user = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("user", null).toString()
         if (user != "Guest"){
-            emailEditView.visibility = TextView.GONE
             emailTextView.text = "Email: $user"
         }
 
@@ -91,19 +95,15 @@ class CheckoutActivity : AppCompatActivity() {
         chooseTable.setOnClickListener {
             tableDialog()
         }
-
+        var paymentStatus = ""
         paymentGroup.setOnCheckedChangeListener { _, checkedId ->
             val radio: RadioButton = findViewById(checkedId)
-            order.paymentStatus = radio.text.toString()
+            paymentStatus = radio.text.toString()
         }
 
         orderButton.setOnClickListener{
             if (user == "Guest"){
-                if (emailEditView.text.toString().isEmpty()){
-                    Toast.makeText(this, "Wprowadź email", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                order.userEmail = emailEditView.text.toString()
+                Toast.makeText(this, "Musisz sie zalogować!", Toast.LENGTH_SHORT).show()
             }else{
                 order.userEmail = user
             }
@@ -115,26 +115,31 @@ class CheckoutActivity : AppCompatActivity() {
                 Toast.makeText(this, "Dodaj coś do zamówienia", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (order.paymentStatus == ""){
+            if (paymentStatus == ""){
                 Toast.makeText(this, "Wybierz metode płatności", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             var token = application.getSharedPreferences("user", MODE_PRIVATE).getString("token",null)
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val current = LocalDateTime.now().format(formatter)
-            order.orderDate = Calendar.getInstance().time
-            order.meals = userMealList
-            order.totalPrice = userMealList.sumOf { parsePrice(it.productPrice) * it.quantity.toDouble() }
+            val mealsData = userMealList.map { item ->
+                OrderMeals(
+                    name = item.productName,
+                    quantity = item.quantity,
+                    price = item.productPrice + " zł"
+                )
+            }
+            order.meals = mealsData
+            order.totalPrice = parsePrice(totalPrice.text.toString().substring(15, totalPrice.text.toString().length-3))
             order.userToken = token.toString()
-            order.orderRate = 0
             order.comments = comment.text.toString()
-            order.status = "Zamówiono"
 
-            if (order.paymentStatus == "Płatność online"){
-                PaymentConfiguration.init(this,PUBLISH_KEY)
+            if (paymentStatus == "Płatność online"){
+                PaymentConfiguration.init(applicationContext, PUBLISH_KEY)
+                paymentViewModel.doPayment(order)
 
                 return@setOnClickListener
             }
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val current = LocalDateTime.now().format(formatter)
             /*reservationViewModel.addReservation(Reservation(
                 "",
                 current,
@@ -156,6 +161,9 @@ class CheckoutActivity : AppCompatActivity() {
         observerList()
 
     }
+
+
+
     private fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
         when (paymentSheetResult) {
             is PaymentSheetResult.Canceled -> {

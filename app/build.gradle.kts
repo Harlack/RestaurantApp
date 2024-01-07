@@ -86,6 +86,7 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.40")
     implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     implementation ("androidx.fragment:fragment-ktx:1.4.0")
-    
 
+    // Stripe Android SDK
+    implementation ("com.stripe:stripe-android:20.36.0")
 }

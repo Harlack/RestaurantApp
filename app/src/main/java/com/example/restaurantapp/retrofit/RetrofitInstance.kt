@@ -36,5 +36,8 @@ object RetrofitInstance {
     fun getReservationService(): ReservationAPI {
         return retrofit().create(ReservationAPI::class.java)
     }
+    fun getPaymentService(): PaymentAPI {
+        return retrofit().create(PaymentAPI::class.java)
+    }
 
 }

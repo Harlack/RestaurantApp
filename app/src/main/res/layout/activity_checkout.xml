@@ -175,17 +175,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_gravity="center"
             />
-        <EditText
-            android:id="@+id/checkoutEmailEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_40sdp"
-            android:hint="Email"
-            android:background="@drawable/layout_inputs"
-            android:textSize="@dimen/_15sdp"
-            android:textColor="@color/my_black"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            />
+
 
     </LinearLayout>
     <TextView
