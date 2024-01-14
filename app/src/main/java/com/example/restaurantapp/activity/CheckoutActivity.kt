@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -21,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurantapp.R
 import com.example.restaurantapp.adapter.TableAdapter
 import com.example.restaurantapp.meals.ShopMeal
-import com.example.restaurantapp.order.Order
-import com.example.restaurantapp.order.OrderMeals
-import com.example.restaurantapp.order.OrderResponse
+import com.example.restaurantapp.meals.Order
+import com.example.restaurantapp.meals.OrderMeals
+import com.example.restaurantapp.meals.OrderResponse
 import com.example.restaurantapp.reservations.Reservation
 import com.example.restaurantapp.reservations.Table
 import com.example.restaurantapp.viewModel.CartViewModel
@@ -60,7 +59,7 @@ class CheckoutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_checkout)
+        setContentView(R.layout.the_payment_activity_checkout)
 
         totalPrice = findViewById(R.id.checkoutTotalPrice)
         emailTextView = findViewById(R.id.checkoutEmailText)
@@ -245,7 +244,7 @@ class CheckoutActivity : AppCompatActivity() {
     private fun tableDialog(){
         val dialog = AlertDialog.Builder(this)
         dialog.setTitle("Wybierz stolik")
-        val dialogView = layoutInflater.inflate(R.layout.custom_tables_layout, null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog, null)
         val tablesLayout = dialogView.findViewById<ConstraintLayout>(R.id.tablesLayout)
         addTables(tablesLayout)
         dialog.setView(dialogView)

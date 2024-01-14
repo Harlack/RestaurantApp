@@ -1,7 +1,7 @@
 package com.example.restaurantapp.retrofit
 
-import com.example.restaurantapp.order.Order
-import com.example.restaurantapp.order.OrderResponse
+import com.example.restaurantapp.meals.Order
+import com.example.restaurantapp.meals.OrderResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

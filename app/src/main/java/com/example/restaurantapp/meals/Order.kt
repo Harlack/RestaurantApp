@@ -1,10 +1,6 @@
-package com.example.restaurantapp.order
+package com.example.restaurantapp.meals
 
-import com.example.restaurantapp.meals.Meal
-import com.example.restaurantapp.meals.ShopMeal
 import java.io.Serializable
-import java.time.LocalDate
-import java.util.Date
 
 class Order : Serializable {
     var meals: List<OrderMeals> = ArrayList()
