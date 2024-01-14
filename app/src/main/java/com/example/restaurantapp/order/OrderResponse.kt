@@ -1,4 +1,4 @@
-package com.example.restaurantapp.meals
+package com.example.restaurantapp.order
 
 data class OrderResponse(
     val customer: String,

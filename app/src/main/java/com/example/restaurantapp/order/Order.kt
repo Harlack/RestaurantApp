@@ -1,4 +1,4 @@
-package com.example.restaurantapp.meals
+package com.example.restaurantapp.order
 
 import java.io.Serializable
 

@@ -3,8 +3,8 @@ package com.example.restaurantapp.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.restaurantapp.meals.Order
-import com.example.restaurantapp.meals.OrderResponse
+import com.example.restaurantapp.order.Order
+import com.example.restaurantapp.order.OrderResponse
 import com.example.restaurantapp.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback

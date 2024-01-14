@@ -20,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurantapp.R
 import com.example.restaurantapp.adapter.TableAdapter
 import com.example.restaurantapp.meals.ShopMeal
-import com.example.restaurantapp.meals.Order
-import com.example.restaurantapp.meals.OrderMeals
-import com.example.restaurantapp.meals.OrderResponse
+import com.example.restaurantapp.order.Order
+import com.example.restaurantapp.order.OrderMeals
+import com.example.restaurantapp.order.OrderResponse
 import com.example.restaurantapp.reservations.Reservation
 import com.example.restaurantapp.reservations.Table
 import com.example.restaurantapp.viewModel.CartViewModel
@@ -59,7 +59,7 @@ class CheckoutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.the_payment_activity_checkout)
+        setContentView(R.layout.activity_checkout)
 
         totalPrice = findViewById(R.id.checkoutTotalPrice)
         emailTextView = findViewById(R.id.checkoutEmailText)
