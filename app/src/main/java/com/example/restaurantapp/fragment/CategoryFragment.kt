@@ -48,10 +48,10 @@ class CategoryFragment : Fragment() {
         adapter.setOnClickListener(object : CategoryAdapter.Listeners {
             override fun onItemCLick(position: Int) {
                 val intent = Intent(activity, MealActivity::class.java)
-                intent.putExtra(HomeFragment.MEAL_ID, mealsList[position]._id)
-                intent.putExtra(HomeFragment.MEAL_NAME, mealsList[position].productName)
-                intent.putExtra(HomeFragment.MEAL_THUMB, mealsList[position].productImage)
-                intent.putExtra(HomeFragment.MEAL_INDEX, mealsList[position].__v)
+                intent.putExtra(HomeFragment.MEAL_ID, filteredValues[position]._id)
+                intent.putExtra(HomeFragment.MEAL_NAME, filteredValues[position].productName)
+                intent.putExtra(HomeFragment.MEAL_THUMB, filteredValues[position].productImage)
+                intent.putExtra(HomeFragment.MEAL_INDEX, filteredValues[position].__v)
                 startActivity(intent)
             }
         })

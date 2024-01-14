@@ -128,14 +128,6 @@
             android:layout_marginTop="1dp"
             android:background="@color/transparent"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textSize="@dimen/_20sdp"
-            />
     </LinearLayout>
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressbar"

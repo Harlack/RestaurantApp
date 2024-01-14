@@ -5,219 +5,248 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.CheckoutActivity">
-    <TextView
-        android:id="@+id/checkoutTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Podsumowanie zamówienia"
-        android:textSize="@dimen/_30ssp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_30sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
 
-    <LinearLayout
-        android:id="@+id/tableHeader"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/my_black"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_11sdp"
-        android:layout_marginEnd="@dimen/_11sdp"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/checkoutTitle"
-        >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Nazwa"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/light_grey2"
-            android:textSize="@dimen/_15sdp"
-            android:layout_weight="1"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Ilość"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/light_grey2"
-            android:textSize="@dimen/_15sdp"
-            android:layout_weight="1"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Cena"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/light_grey2"
-            android:textSize="@dimen/_15sdp"
-            android:layout_weight="1"
-            />
+        app:layout_constraintTop_toTopOf="parent">
 
-
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/table_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/table_row"
-        tools:itemCount="9"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_5sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tableHeader"
-        />
-
-    <LinearLayout
-        android:id="@+id/checkoutLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/table_row_style"
-        android:orientation="horizontal"
-        android:layout_marginStart="@dimen/_11sdp"
-        android:layout_marginEnd="@dimen/_11sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/table_recycler_view"
-        >
-        <TextView
-            android:id="@+id/checkoutTotalPrice"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Łączna cena: 0.00 zł"
-            android:textStyle="bold"
-            android:gravity="right"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:textColor="@color/my_black"
-            android:textSize="@dimen/_15sdp"
-            />
-    </LinearLayout>
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/chooseTableBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/grey"
-        android:textSize="@dimen/_15sdp"
-        android:text="Stolik"
-        android:textColor="@color/white"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@+id/checkoutLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+            <ImageView
+                android:id="@+id/checkoutBackBtn"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/transparent"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/paymentMethodText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Płatność:"
-        android:textStyle="bold"
-        android:textColor="@color/my_black"
-        android:textSize="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/chooseTableBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+            <TextView
+                android:id="@+id/checkoutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:text="Podsumowanie zamówienia"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_30ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/paymentMethodGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/chooseTableBtn"
-        app:layout_constraintStart_toEndOf="@id/paymentMethodText"
-        >
+            <LinearLayout
+                android:id="@+id/tableHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_11sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_11sdp"
+                android:background="@color/my_black"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkoutTitle">
 
-        <RadioButton
-            android:id="@+id/onlinePayment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Płatność online" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nazwa"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_grey2"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
 
-        <RadioButton
-            android:id="@+id/cashPayment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Płatność przy kasie" />
-    </RadioGroup>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ilość"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_grey2"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/checkoutEmailLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_11sdp"
-        android:layout_marginEnd="@dimen/_11sdp"
-        app:layout_constraintTop_toBottomOf="@id/paymentMethodGroup"
-        >
-        <TextView
-            android:id="@+id/checkoutEmailText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email: "
-            android:textStyle="bold"
-            android:textColor="@color/my_black"
-            android:textSize="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_gravity="center"
-            />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cena"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_grey2"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
 
 
-    </LinearLayout>
-    <TextView
-        android:id="@+id/checkoutCommentsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Uwagi do zamówienia:"
-        android:textStyle="bold"
-        android:textColor="@color/my_black"
-        android:textSize="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/checkoutEmailLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-    <EditText
-        android:id="@+id/checkoutCommentsEdit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
-        android:hint="Uwagi"
-        android:background="@drawable/layout_inputs"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="@color/my_black"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/checkoutCommentsText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <Button
-        android:id="@+id/orderBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Zamów"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/accent"
-        android:layout_margin="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/checkoutCommentsEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+            </LinearLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/table_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tableHeader"
+                tools:itemCount="9"
+                tools:listitem="@layout/table_row" />
+
+            <LinearLayout
+                android:id="@+id/checkoutLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_11sdp"
+                android:layout_marginEnd="@dimen/_11sdp"
+                android:background="@drawable/table_row_style"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/table_recycler_view">
+
+                <TextView
+                    android:id="@+id/checkoutTotalPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:gravity="right"
+                    android:text="Łączna cena: 0.00 zł"
+                    android:textColor="@color/my_black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/chooseTableBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/grey"
+                android:text="Stolik"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutLayout" />
+
+            <TextView
+                android:id="@+id/paymentMethodText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="Płatność:"
+                android:textColor="@color/my_black"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chooseTableBtn" />
+
+            <RadioGroup
+                android:id="@+id/paymentMethodGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/paymentMethodText"
+                app:layout_constraintTop_toBottomOf="@id/chooseTableBtn">
+
+                <RadioButton
+                    android:id="@+id/onlinePayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/platnosc_online" />
+
+                <RadioButton
+                    android:id="@+id/cashPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/platnosc_gotowka" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/checkoutEmailLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_11sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_11sdp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/paymentMethodGroup">
+
+                <TextView
+                    android:id="@+id/checkoutEmailText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/email"
+                    android:textColor="@color/my_black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/checkoutEmailEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/layout_inputs"
+                    android:hint="Email"
+                    android:textColor="@color/my_black"
+                    android:textSize="@dimen/_15sdp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/checkoutCommentsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Uwagi do zamówienia:"
+                android:textColor="@color/my_black"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkoutEmailLayout" />
+
+            <EditText
+                android:id="@+id/checkoutCommentsEdit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@drawable/layout_inputs"
+                android:hint="Uwagi"
+                android:textColor="@color/my_black"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkoutCommentsText" />
+
+            <Button
+                android:id="@+id/orderBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:backgroundTint="@color/accent"
+                android:text="Zamów"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkoutCommentsEdit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

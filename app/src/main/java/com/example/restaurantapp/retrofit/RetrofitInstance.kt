@@ -16,28 +16,29 @@ object RetrofitInstance {
             .create(MealAPI::class.java)
     }
 
-    private fun retrofit() : Retrofit {
+    private fun retrofit(): Retrofit {
 
-        val logging = HttpLoggingInterceptor();
+        val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val httpClient = OkHttpClient.Builder().addInterceptor(logging).build()
 
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("http://164.90.183.62/")
             .client(httpClient)
-            .build();
-        return retrofit;
+            .build()
     }
+
     fun getService(): UserAPI {
         return retrofit().create(UserAPI::class.java)
     }
     fun getReservationService(): ReservationAPI {
         return retrofit().create(ReservationAPI::class.java)
     }
-    fun getPaymentService(): PaymentAPI {
-        return retrofit().create(PaymentAPI::class.java)
+    fun getOrderService(): OrderAPI {
+        return retrofit().create(OrderAPI::class.java)
     }
+
 
 }

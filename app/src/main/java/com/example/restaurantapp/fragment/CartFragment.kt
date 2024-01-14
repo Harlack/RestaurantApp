@@ -59,13 +59,7 @@ class CartFragment : Fragment() {
         binding.cartRecyclerView.adapter = adapter
 
         binding.checkoutButton.setOnClickListener {
-            val userEmail = activity?.getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("user", null).toString()
-            if (userEmail == "Guest") {
-                Toast.makeText(activity, "Zaloguj się aby złożyć zamówienie", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }else {
-                startActivity(Intent(activity, CheckoutActivity::class.java))
-            }
+            startActivity(Intent(activity, CheckoutActivity::class.java))
         }
 
         adapter.setOnDeleteListener(object : CartAdapter.Listeners{
@@ -98,6 +92,10 @@ class CartFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        cartViewModel.loadCart()
+    }
     private fun setTotalPrice() {
         if (cartMealList.isEmpty()) {
             binding.totalPriceTextView.text = "Łączna cena: 0.00 zł"

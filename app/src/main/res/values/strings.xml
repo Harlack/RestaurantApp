@@ -17,6 +17,9 @@
     <string name="zmien_haslo">Zmień hasło</string>
     <string name="zmien_numer_telefonu">Zmień numer telefonu</string>
     <string name="wyloguj_sie">Wyloguj się</string>
+    <string name="platnosc_gotowka">Płatność gotówką</string>
+    <string name="platnosc_online">Płatność online</string>
+    <string name="email">Email:</string>
     <string-array name="settings">
         <item>Zmień hasło</item>
         <item>Zmień numer telefonu</item>

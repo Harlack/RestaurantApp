@@ -6,7 +6,11 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface PaymentAPI {
-    @POST("api/payment")
+interface OrderAPI {
+
+    @POST("api/payment/payment-sheet")
     fun stripePayment(@Body order : Order) : Call<OrderResponse>
+
+    @POST("api/orders")
+    fun makeOrder(@Body order : Order) : Call<String>
 }
