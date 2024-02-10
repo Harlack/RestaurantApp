@@ -1,3 +1,5 @@
+System to support restaurant service - Mobile app in Kotlin
+
 Examples of functionalities included in the mobile application:
 
 - user login and registration
@@ -7,6 +9,7 @@ Examples of functionalities included in the mobile application:
 - presenting detailed information about the products
 - shopping cart service
 - handling payments using Stripe
+- MVVM architecture used
 - reservation system with a button to refresh and display occupied tables on the current day
 - table map displayed to reserve a seat or order on the spot
 - standard user options such as changing password or changing phone number
