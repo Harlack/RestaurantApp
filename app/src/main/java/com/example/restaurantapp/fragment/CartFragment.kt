@@ -102,7 +102,7 @@ class CartFragment : Fragment() {
             return
         }
         var suma = cartMealList.sumOf { parsePrice(it.productPrice) * it.quantity.toDouble() }
-        binding.totalPriceTextView.text = "Łączna cena: ${String.format("%.2f", suma)} zł"
+        binding.totalPriceTextView.text = "Łączna cena: $suma zł"
     }
 
     private fun parsePrice(price: String): Double {

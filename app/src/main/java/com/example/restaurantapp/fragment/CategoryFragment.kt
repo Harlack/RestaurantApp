@@ -55,18 +55,15 @@ class CategoryFragment : Fragment() {
                 startActivity(intent)
             }
         })
-
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.categoriesGroup.clearCheck()
-        binding.daniaGlowne.performClick()
-    }
+
     private fun observerList() {
       categoryViewModel.getFullList().observe(viewLifecycleOwner) { t ->
             mealsList = t
-            adapter.updateData(mealsList)
+            filteredValues = mealsList.filter { it.productCategory == "Dania główne" }
+            adapter.updateData(filteredValues)
+            binding.daniaGlowne.isChecked = true
         }
 
     }

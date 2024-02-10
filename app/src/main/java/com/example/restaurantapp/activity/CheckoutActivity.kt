@@ -85,6 +85,8 @@ class CheckoutActivity : AppCompatActivity() {
 
         user = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("user", null).toString()
         if (user != "Guest"){
+            var token = application.getSharedPreferences("user", MODE_PRIVATE).getString("token",null)
+            order.userToken = token.toString()
             emailTextView.text = "Email: $user"
             emailEditText.visibility = View.GONE
             order.userEmail = user
@@ -103,7 +105,10 @@ class CheckoutActivity : AppCompatActivity() {
             paymentStatus = radio.text.toString()
             if (paymentStatus == "Płatność online" && user == "Guest"){
                 Toast.makeText(this, "Musisz się zalogować, aby zapłacić kartą", Toast.LENGTH_SHORT).show()
+                orderButton.visibility = View.GONE
                 return@setOnCheckedChangeListener
+            }else{
+                orderButton.visibility = View.VISIBLE
             }
         }
 
@@ -123,7 +128,10 @@ class CheckoutActivity : AppCompatActivity() {
                 Toast.makeText(this, "Wybierz metode płatności", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+            if (order.userEmail.isEmpty()&& (emailEditText.text.toString().isEmpty() || emailEditText.text.toString().contains("@").not())){
+                Toast.makeText(this, "Prosze podać email", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val mealsData = userMealList.map { item ->
                 OrderMeals(
                     name = item.productName,
@@ -136,17 +144,11 @@ class CheckoutActivity : AppCompatActivity() {
             order.comments = comment.text.toString()
 
             if (paymentStatus == "Płatność online" && user != "Guest"){
-                var token = application.getSharedPreferences("user", MODE_PRIVATE).getString("token",null)
-                order.userToken = token.toString()
                 paymentOnline()
-            }else{
-                val token = "Użytkownik niezalogowany"
-                order.userEmail = emailEditText.text.toString()
-                order.userToken = token
-                order.paymentStatus = "Płatność przy odbiorze"
-                orderViewModel.makeOrder(order)
-                cartViewModel.clearCart()
-                checkoutDialog("Zamówienie zostało złożone. Proszę zapłacić przy odbiorze")
+            }
+
+            if (paymentStatus == "Płatność gotówką"){
+                paymentWithCash()
             }
         }
         reservationViewModel.getListOfTables()
@@ -163,7 +165,20 @@ class CheckoutActivity : AppCompatActivity() {
         finish()
         return true
     }
-
+    private fun paymentWithCash(){
+        try {
+            if (order.userEmail.isEmpty()){
+                order.userEmail = emailEditText.text.toString()
+                order.userToken = "Użytkownik niezalogowany"
+            }
+            order.paymentStatus = "Płatność przy odbiorze"
+            orderViewModel.makeOrder(order)
+            cartViewModel.clearCart()
+            checkoutDialog("Zamówienie zostało złożone. Proszę zapłacić przy odbiorze")
+        }catch (e: Exception) {
+            Toast.makeText(this, "Wystąpił problem przy złożeniu zamówienia", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
         when (paymentSheetResult) {
             is PaymentSheetResult.Canceled -> {
@@ -205,7 +220,7 @@ class CheckoutActivity : AppCompatActivity() {
                 paymentSheet()
             }
         }catch (e: Exception) {
-            Toast.makeText(this, "Trwa ładowanie płatności", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Problem z płatnością", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -318,7 +333,7 @@ class CheckoutActivity : AppCompatActivity() {
             return
         }
         var suma = userMealList.sumOf { parsePrice(it.productPrice) * it.quantity.toDouble() }
-        totalPrice.text = "Łączna cena: ${String.format("%.2f", suma)} zł"
+        totalPrice.text = "Łączna cena: $suma zł"
     }
 
     private fun parsePrice(price: String): Double {
